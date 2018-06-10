@@ -37,6 +37,18 @@ public class MainActivity extends AppCompatActivity
 		//Bind Navigation Bar
 		NavigationView navigationView = findViewById(R.id.nav_view);
 		navigationView.setNavigationItemSelectedListener(this);
+
+		//Bind floating buttom
+		FloatingActionButton add_user = findViewById(R.id.main_add_user);
+		add_user.setOnClickListener(new View.OnClickListener()
+		{
+			@Override
+			public void onClick(View view)
+			{
+				Snackbar.make(view, "To do", Snackbar.LENGTH_LONG)
+						.setAction("Action", null).show();
+			}
+		});
 	}
 
 	//Back button behaviour
