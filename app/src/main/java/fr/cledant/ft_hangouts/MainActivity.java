@@ -92,8 +92,6 @@ public class MainActivity extends AppCompatActivity
 	{
 		switch (item.getItemId())
 		{
-			case R.id.nav_contact_list:
-				break;
 			case R.id.nav_new_contact:
 			{
 				Intent intent = new Intent(this, AddUserActivity.class);

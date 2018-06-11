@@ -10,4 +10,13 @@
     <string name="nav_setting">Settings</string>
     <!-- Other -->
     <string name="other_wip">WIP</string>
+    <!-- Add User Toolbar -->
+    <string name="add_user_cancel">Cancel</string>
+    <string name="add_user_save">Save</string>
+    <!-- Add user names-->
+    <string name="add_user_firstname">First name</string>
+    <string name="add_user_lastname">Last name</string>
+    <string name="add_user_surname">Surname</string>
+    <string name="add_user_phonenumber">Phone</string>
+    <string name="add_user_mail">Email</string>
 </resources>
