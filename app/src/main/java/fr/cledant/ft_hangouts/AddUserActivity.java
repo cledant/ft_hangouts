@@ -1,14 +1,14 @@
 package fr.cledant.ft_hangouts;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.widget.DrawerLayout;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 
 public class AddUserActivity extends AppCompatActivity
+		implements View.OnClickListener
 {
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -20,29 +20,37 @@ public class AddUserActivity extends AppCompatActivity
 		Toolbar toolbar = findViewById(R.id.toolbar_add_user);
 		setSupportActionBar(toolbar);
 
-		//Bind Action Bar
-		DrawerLayout drawer = findViewById(R.id.drawer_layout_add_user);
-
 		//Disable Action bar title
 		getSupportActionBar().setDisplayShowTitleEnabled(false);
+
+		//Bind Buttons
+		TextView cancel = findViewById(R.id.toolbar_add_user_cancel);
+		cancel.setOnClickListener(this);
+		TextView save = findViewById(R.id.toolbar_add_user_save);
+		save.setOnClickListener(this);
+
+		//NotificationBar color
+//		?attr/colorPrimary
+
+
 	}
 
-	// Inflate the option menu; this adds items to the action bar if it is present.
 	@Override
-	public boolean onCreateOptionsMenu(Menu menu)
+	public void onClick(View view)
 	{
-		getMenuInflater().inflate(R.menu.main, menu);
-		return true;
-	}
-
-	//Action Bar
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item)
-	{
-		switch (item.getItemId())
+		switch (view.getId())
 		{
 			default:
-				return super.onOptionsItemSelected(item);
+				break;
+			case R.id.toolbar_add_user_cancel:
+				super.onBackPressed();
+				break;
+			case R.id.toolbar_add_user_save:
+			{
+				Snackbar.make(view, "WIP", Snackbar.LENGTH_LONG)
+						.setAction("Action", null).show();
+				break;
+			}
 		}
 	}
 }
