@@ -99,7 +99,11 @@ public class MainActivity extends AppCompatActivity
 				break;
 			}
 			case R.id.nav_settings:
+			{
+				Intent intent = new Intent(this, SettingsActivity.class);
+				startActivity(intent);
 				break;
+			}
 			default:
 				break;
 		}
