@@ -21,5 +21,13 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent" app:layout_constraintHorizontal_bias="0.1"
                 android:layout_marginTop="32dp"/>
+        <Spinner
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/theme_spinner"
+                android:entries="@string/settings_header_color"
+                app:layout_constraintStart_toEndOf="@+id/settings_header_color" android:layout_marginLeft="32dp"
+                android:layout_marginStart="32dp" app:layout_constraintBottom_toBottomOf="@+id/settings_header_color"
+                app:layout_constraintTop_toTopOf="@+id/settings_header_color"/>
     </android.support.constraint.ConstraintLayout>
 </ScrollView>
