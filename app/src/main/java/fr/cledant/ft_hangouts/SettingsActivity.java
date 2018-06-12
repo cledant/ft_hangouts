@@ -1,8 +1,8 @@
 package fr.cledant.ft_hangouts;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.AdapterView;
@@ -10,7 +10,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-public class SettingsActivity extends AppCompatActivity
+public class SettingsActivity extends BaseActivity
 		implements View.OnClickListener, AdapterView.OnItemSelectedListener
 {
 
@@ -22,10 +22,10 @@ public class SettingsActivity extends AppCompatActivity
 
 		//Bind Toolbar
 		Toolbar toolbar = findViewById(R.id.toolbar_settings);
-		setSupportActionBar(toolbar);
+		//setSupportActionBar(toolbar);
 
 		//Disable Action bar title
-		getSupportActionBar().setDisplayShowTitleEnabled(false);
+//		getSupportActionBar().setDisplayShowTitleEnabled(false);
 
 		//Bind Buttons
 		TextView cancel = findViewById(R.id.toolbar_settings_cancel);
@@ -68,20 +68,20 @@ public class SettingsActivity extends AppCompatActivity
 		{
 			case 0:
 			{
-				Snackbar.make(view, "BLUE", Snackbar.LENGTH_LONG)
-						.setAction("Action", null).show();
+				Utility.setTheme(getApplicationContext(), 1);
+				//recreateActivity();
 				break;
 			}
 			case 1:
 			{
-				Snackbar.make(view, "RED", Snackbar.LENGTH_LONG)
-						.setAction("Action", null).show();
+				Utility.setTheme(getApplicationContext(), 2);
+				//recreateActivity();
 				break;
 			}
 			case 2:
 			{
-				Snackbar.make(view, "YELLOW", Snackbar.LENGTH_LONG)
-						.setAction("Action", null).show();
+				Utility.setTheme(getApplicationContext(), 3);
+//				recreateActivity();
 				break;
 			}
 		}
@@ -90,5 +90,15 @@ public class SettingsActivity extends AppCompatActivity
 	@Override
 	public void onNothingSelected(AdapterView<?> parent)
 	{
+	}
+
+	public void recreateActivity()
+	{
+		Intent intent = getIntent();
+		intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+		finish();
+		overridePendingTransition(0, 0);
+		startActivity(intent);
+		overridePendingTransition(0, 0);
 	}
 }

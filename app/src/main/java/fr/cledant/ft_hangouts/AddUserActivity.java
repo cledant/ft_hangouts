@@ -2,12 +2,11 @@ package fr.cledant.ft_hangouts;
 
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.TextView;
 
-public class AddUserActivity extends AppCompatActivity
+public class AddUserActivity extends BaseActivity
 		implements View.OnClickListener
 {
 	@Override
@@ -18,10 +17,10 @@ public class AddUserActivity extends AppCompatActivity
 
 		//Bind Toolbar
 		Toolbar toolbar = findViewById(R.id.toolbar_add_user);
-		setSupportActionBar(toolbar);
+		//setSupportActionBar(toolbar);
 
 		//Disable Action bar title
-		getSupportActionBar().setDisplayShowTitleEnabled(false);
+//		getSupportActionBar().setDisplayShowTitleEnabled(false);
 
 		//Bind Buttons
 		TextView cancel = findViewById(R.id.toolbar_add_user_cancel);
