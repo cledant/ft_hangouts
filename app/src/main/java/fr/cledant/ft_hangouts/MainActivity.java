@@ -24,7 +24,7 @@ public class MainActivity extends BaseActivity
 
 		//Bind Toolbar
 		Toolbar toolbar = findViewById(R.id.toolbar_main);
-		//setSupportActionBar(toolbar);
+		setSupportActionBar(toolbar);
 
 		//Bind Action Bar + Drawer toogle button
 		DrawerLayout drawer = findViewById(R.id.drawer_layout_main);

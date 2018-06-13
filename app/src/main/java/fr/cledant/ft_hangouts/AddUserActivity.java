@@ -17,10 +17,10 @@ public class AddUserActivity extends BaseActivity
 
 		//Bind Toolbar
 		Toolbar toolbar = findViewById(R.id.toolbar_add_user);
-		//setSupportActionBar(toolbar);
+		setSupportActionBar(toolbar);
 
 		//Disable Action bar title
-//		getSupportActionBar().setDisplayShowTitleEnabled(false);
+		getSupportActionBar().setDisplayShowTitleEnabled(false);
 
 		//Bind Buttons
 		TextView cancel = findViewById(R.id.toolbar_add_user_cancel);

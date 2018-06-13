@@ -37,7 +37,7 @@ public class BaseActivity extends AppCompatActivity
 		{
 			case THEME_BLUE:
 			{
-				setTheme(R.style.AppTheme_Blue);
+				setTheme(R.style.AppTheme_Blue_NoActionBar);
 				if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
 				{
 					getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
@@ -47,7 +47,7 @@ public class BaseActivity extends AppCompatActivity
 			}
 			case THEME_RED:
 			{
-				setTheme(R.style.AppTheme_Red);
+				setTheme(R.style.AppTheme_Red_NoActionBar);
 				if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
 				{
 					getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
@@ -57,7 +57,7 @@ public class BaseActivity extends AppCompatActivity
 			}
 			case THEME_YELLOW:
 			{
-				setTheme(R.style.AppTheme_Yellow);
+				setTheme(R.style.AppTheme_Yellow_NoActionBar);
 				if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
 				{
 					getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
