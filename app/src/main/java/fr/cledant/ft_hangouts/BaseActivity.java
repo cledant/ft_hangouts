@@ -7,9 +7,9 @@ import android.view.WindowManager;
 
 public class BaseActivity extends AppCompatActivity
 {
-	private final static int THEME_BLUE = 1;
-	private final static int THEME_RED = 2;
-	private final static int THEME_YELLOW = 3;
+	private final static int THEME_BLUE = 0;
+	private final static int THEME_RED = 1;
+	private final static int THEME_YELLOW = 2;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)

@@ -13,6 +13,7 @@ import android.widget.TextView;
 public class SettingsActivity extends BaseActivity
 		implements View.OnClickListener, AdapterView.OnItemSelectedListener
 {
+	static int userTheme = 1;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -40,6 +41,8 @@ public class SettingsActivity extends BaseActivity
 		theme_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		theme_selection.setAdapter(theme_adapter);
 		theme_selection.setOnItemSelectedListener(this);
+		userTheme = Utility.getTheme(getApplicationContext());
+		theme_selection.setSelection(userTheme, false);
 	}
 
 	@Override
@@ -54,8 +57,8 @@ public class SettingsActivity extends BaseActivity
 				break;
 			case R.id.toolbar_settings_save:
 			{
-				Snackbar.make(view, "WIP", Snackbar.LENGTH_LONG)
-						.setAction("Action", null).show();
+				Utility.setTheme(getApplicationContext(), userTheme);
+				recreate();
 				break;
 			}
 		}
@@ -64,41 +67,11 @@ public class SettingsActivity extends BaseActivity
 	@Override
 	public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
 	{
-		switch (position)
-		{
-			case 0:
-			{
-				Utility.setTheme(getApplicationContext(), 1);
-				//recreateActivity();
-				break;
-			}
-			case 1:
-			{
-				Utility.setTheme(getApplicationContext(), 2);
-				//recreateActivity();
-				break;
-			}
-			case 2:
-			{
-				Utility.setTheme(getApplicationContext(), 3);
-//				recreateActivity();
-				break;
-			}
-		}
+		userTheme = position;
 	}
 
 	@Override
 	public void onNothingSelected(AdapterView<?> parent)
 	{
-	}
-
-	public void recreateActivity()
-	{
-		Intent intent = getIntent();
-		intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-		finish();
-		overridePendingTransition(0, 0);
-		startActivity(intent);
-		overridePendingTransition(0, 0);
 	}
 }
