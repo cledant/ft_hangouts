@@ -1,6 +1,5 @@
 package fr.cledant.ft_hangouts;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.Toolbar;
@@ -13,8 +12,6 @@ import android.widget.TextView;
 public class SettingsActivity extends BaseActivity
 		implements View.OnClickListener, AdapterView.OnItemSelectedListener
 {
-	static int userTheme = 1;
-
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
@@ -41,8 +38,7 @@ public class SettingsActivity extends BaseActivity
 		theme_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		theme_selection.setAdapter(theme_adapter);
 		theme_selection.setOnItemSelectedListener(this);
-		userTheme = Utility.getTheme(getApplicationContext());
-		theme_selection.setSelection(userTheme, false);
+		theme_selection.setSelection(Utility.getThemePref(getApplicationContext()), false);
 	}
 
 	@Override
@@ -53,12 +49,15 @@ public class SettingsActivity extends BaseActivity
 			default:
 				break;
 			case R.id.toolbar_settings_cancel:
+			{
 				super.onBackPressed();
 				break;
+			}
 			case R.id.toolbar_settings_save:
 			{
-				Utility.setTheme(getApplicationContext(), userTheme);
+				Utility.setThemePref(getApplicationContext(), userTheme);
 				recreate();
+				super.onBackPressed();
 				break;
 			}
 		}

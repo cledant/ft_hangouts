@@ -10,6 +10,7 @@ public class BaseActivity extends AppCompatActivity
 	private final static int THEME_BLUE = 0;
 	private final static int THEME_RED = 1;
 	private final static int THEME_YELLOW = 2;
+	public int userTheme = 0;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -22,12 +23,17 @@ public class BaseActivity extends AppCompatActivity
 	public void onResume()
 	{
 		super.onResume();
-		updateTheme();
+		if (userTheme != Utility.getThemePref(getApplicationContext()))
+		{
+			updateTheme();
+			recreate();
+		}
 	}
 
 	public void updateTheme()
 	{
-		switch (Utility.getTheme(getApplicationContext()))
+		userTheme = Utility.getThemePref(getApplicationContext());
+		switch (userTheme)
 		{
 			case THEME_BLUE:
 			{
