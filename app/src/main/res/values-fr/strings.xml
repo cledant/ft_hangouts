@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">ft_hangouts</string>
+    <string name="action_settings">Paramètres</string>
+    <!-- Pref -->
+    <string name="prefs_theme_key">theme</string>
+    <!-- Navigation bar names -->
+    <string name="nav_header_desc">Entête de navigation</string>
+    <string name="nav_drawer_open">Ouvrir tiroir de navigation</string>
+    <string name="nav_drawer_close">Fermer tiroir de navigation</string>
+    <string name="nav_new_contact">Nouveau contact</string>
+    <string name="nav_setting">Paramètres</string>
+    <!-- Other -->
+    <string name="other_wip">WIP</string>
+    <!-- Add User Toolbar -->
+    <string name="add_user_cancel">Annuler</string>
+    <string name="add_user_save">Sauver</string>
+    <string name="add_user_title">Ajouter contact</string>
+    <!-- Add user names -->
+    <string name="add_user_firstname">Prénom</string>
+    <string name="add_user_lastname">Nom</string>
+    <string name="add_user_surname">Surnom</string>
+    <string name="add_user_phonenumber">Télephone</string>
+    <string name="add_user_mail">Email</string>
+    <!-- Setting Toolbar -->
+    <string name="settings_cancel">Annuler</string>
+    <string name="settings_save">Sauver</string>
+    <string name="settings_title">Paramètres</string>
+    <!-- Setting names -->
+    <string name="settings_header_color">Couleur entête :</string>
+    <string-array name="settings_color_choice">
+        <item>Bleu</item>
+        <item>Rouge</item>
+        <item>Jaune</item>
+    </string-array>
+</resources>
