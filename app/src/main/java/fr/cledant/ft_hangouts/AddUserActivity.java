@@ -71,7 +71,7 @@ public class AddUserActivity extends BaseActivity
 		DAOContact dao = new DAOContact(getApplicationContext());
 		dao.create(contact);
 		super.onBackPressed();
-		Snackbar.make(view, R.string.add_user_error_names, Snackbar.LENGTH_LONG)
+		Snackbar.make(view, R.string.add_user_ok, Snackbar.LENGTH_LONG)
 				.setAction("Action", null).show();
 	}
 }
