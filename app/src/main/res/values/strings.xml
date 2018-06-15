@@ -32,4 +32,6 @@
         <item>Red</item>
         <item>Yellow</item>
     </string-array>
+    <string name="add_user_error_names">Firstname and lastname must be filled</string>
+    <string name="add_user_ok">Contact added</string>
 </resources>

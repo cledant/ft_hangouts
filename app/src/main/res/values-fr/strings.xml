@@ -33,4 +33,6 @@
         <item>Rouge</item>
         <item>Jaune</item>
     </string-array>
+    <string name="add_user_error_names">Prénom et nom doivent être remplis</string>
+    <string name="add_user_ok">Contact ajouté</string>
 </resources>
