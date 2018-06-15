@@ -82,6 +82,7 @@ public class Contact
 	{
 		return this.phonenumber;
 	}
+
 	public String getEmail()
 	{
 		return this.email;
