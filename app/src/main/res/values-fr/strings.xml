@@ -37,6 +37,11 @@
     <string name="add_user_ok">Contact ajouté</string>
     <string name="display_user_return">Retour</string>
     <string name="display_user_title">Contact info</string>
+    <string name="display_firstname">Prénom : </string>
+    <string name="display_lastname">Nom : </string>
+    <string name="display_surname">Surnom : </string>
+    <string name="display_phonenumber">Télephone : </string>
+    <string name="display_mail">Email : </string>
     <string name="menu_display_modify">Modifier</string>
     <string name="menu_display_delete">Supprimer</string>
 </resources>

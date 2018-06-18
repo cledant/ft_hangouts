@@ -8,9 +8,11 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
-public class AddUserActivity extends BaseActivity
+public class ModifyContactActivity extends BaseActivity
 		implements View.OnClickListener
 {
+	private long contact_id = -1;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
@@ -29,6 +31,14 @@ public class AddUserActivity extends BaseActivity
 		cancel.setOnClickListener(this);
 		TextView save = findViewById(R.id.toolbar_add_user_save);
 		save.setOnClickListener(this);
+
+		//Set TextView
+		Bundle bundle = getIntent().getExtras();
+		if (bundle != null)
+			contact_id = bundle.getLong("ID");
+		if (contact_id == -1)
+			super.onBackPressed();
+		setContactTextView();
 	}
 
 	@Override
@@ -58,7 +68,7 @@ public class AddUserActivity extends BaseActivity
 		EditText surname = findViewById(R.id.add_user_surname);
 		EditText email = findViewById(R.id.add_user_email);
 		EditText phone = findViewById(R.id.add_user_phone);
-		Contact contact = new Contact(0, firstname.getText().toString(),
+		Contact contact = new Contact(contact_id, firstname.getText().toString(),
 				lastname.getText().toString(),
 				surname.getText().toString(),
 				email.getText().toString(),
@@ -71,11 +81,30 @@ public class AddUserActivity extends BaseActivity
 			return;
 		}
 		DAOContact dao = new DAOContact(getApplicationContext());
-		dao.create(contact);
-		long id = dao.getLastId();
+		dao.modify(contact);
 		Intent intent = new Intent(this, DisplayContactActivity.class);
-		intent.putExtra("ID", id);
+		intent.putExtra("ID", contact_id);
 		super.onBackPressed();
 		startActivity(intent);
+	}
+
+	public void setContactTextView()
+	{
+		EditText firstname = findViewById(R.id.add_user_firstname);
+		EditText lastname = findViewById(R.id.add_user_lastname);
+		EditText surname = findViewById(R.id.add_user_surname);
+		EditText email = findViewById(R.id.add_user_email);
+		EditText phone = findViewById(R.id.add_user_phone);
+
+		//Retrive data
+		DAOContact dao = new DAOContact(getApplicationContext());
+		Contact contact = dao.select(contact_id);
+
+		//display
+		firstname.setText(contact.getFirstname());
+		lastname.setText(contact.getLastname());
+		surname.setText(contact.getSurname());
+		phone.setText(contact.getPhonenumber());
+		email.setText(contact.getEmail());
 	}
 }

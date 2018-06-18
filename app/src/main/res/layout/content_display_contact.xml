@@ -15,6 +15,7 @@
 
         <TextView
                 android:layout_width="0dp"
+                android:text="@string/display_firstname"
                 android:layout_height="wrap_content"
                 android:id="@+id/display_user_firstname" app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -24,34 +25,39 @@
                 android:layout_marginStart="16dp" android:layout_marginTop="32dp"/>
         <TextView
                 android:layout_width="0dp"
+                android:text="@string/display_lastname"
                 android:layout_height="wrap_content"
-                android:id="@+id/display_user_lastname" app:layout_constraintStart_toStartOf="@+id/display_user_firstname"
-                android:layout_marginTop="32dp"
+                android:id="@+id/display_user_lastname"
+                app:layout_constraintStart_toStartOf="@+id/display_user_firstname"
+                android:layout_marginTop="8dp"
                 app:layout_constraintTop_toBottomOf="@+id/display_user_firstname"
                 app:layout_constraintEnd_toEndOf="@+id/display_user_firstname"
         />
         <TextView
                 android:ems="10"
+                android:text="@string/display_phonenumber"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:id="@+id/display_user_phone" android:layout_marginTop="32dp"
+                android:id="@+id/display_user_phone" android:layout_marginTop="8dp"
                 app:layout_constraintTop_toBottomOf="@+id/display_user_surname"
                 app:layout_constraintStart_toStartOf="@+id/display_user_surname"
                 app:layout_constraintEnd_toEndOf="@+id/display_user_surname"
         />
         <TextView
-                 android:ems="10"
+                android:ems="10"
+                android:text="@string/display_mail"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:id="@+id/display_user_email" android:layout_marginTop="32dp"
+                android:id="@+id/display_user_email" android:layout_marginTop="8dp"
                 app:layout_constraintTop_toBottomOf="@+id/display_user_phone"
                 app:layout_constraintStart_toStartOf="@+id/display_user_phone"
                 app:layout_constraintEnd_toEndOf="@+id/display_user_phone"
         />
         <TextView
                 android:layout_width="0dp"
+                android:text="@string/display_surname"
                 android:layout_height="wrap_content"
-                android:id="@+id/display_user_surname" android:layout_marginTop="32dp"
+                android:id="@+id/display_user_surname" android:layout_marginTop="8dp"
                 app:layout_constraintTop_toBottomOf="@+id/display_user_lastname"
                 app:layout_constraintStart_toStartOf="@+id/display_user_firstname"
                 app:layout_constraintEnd_toEndOf="@+id/display_user_lastname"

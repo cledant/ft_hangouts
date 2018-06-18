@@ -66,4 +66,21 @@ public class DAOContact extends DAOBase
 		this.close();
 		return contact;
 	}
+
+	public long getLastId()
+	{
+		long id = -1;
+
+		String query = "select * from " + DatabaseHandler.CONTACT_TABLE_NAME;
+		this.open();
+		Cursor cursor = db.rawQuery(query, null);
+		if ((cursor != null) && (cursor.getCount() > 0))
+		{
+			cursor.moveToLast();
+			id = cursor.getLong(0);
+			cursor.close();
+		}
+		this.close();
+		return id;
+	}
 }
