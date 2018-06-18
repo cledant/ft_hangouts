@@ -67,11 +67,8 @@ public class AddUserActivity extends BaseActivity
 					.setAction("Action", null).show();
 			return;
 		}
-
 		DAOContact dao = new DAOContact(getApplicationContext());
 		dao.create(contact);
 		super.onBackPressed();
-		Snackbar.make(view, R.string.add_user_ok, Snackbar.LENGTH_LONG)
-				.setAction("Action", null).show();
 	}
 }

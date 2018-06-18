@@ -44,5 +44,10 @@
                 android:label="@string/app_name"
                 android:theme="@style/AppTheme.Blue.NoActionBar">
         </activity>
+        <activity
+                android:name=".DisplayContactActivity"
+                android:label="@string/app_name"
+                android:theme="@style/AppTheme.Blue.NoActionBar">
+        </activity>
     </application>
 </manifest>

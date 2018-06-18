@@ -35,4 +35,8 @@
     </string-array>
     <string name="add_user_error_names">Prénom et nom doivent être remplis</string>
     <string name="add_user_ok">Contact ajouté</string>
+    <string name="display_user_return">Retour</string>
+    <string name="display_user_title">Contact info</string>
+    <string name="menu_display_modify">Modifier</string>
+    <string name="menu_display_delete">Supprimer</string>
 </resources>

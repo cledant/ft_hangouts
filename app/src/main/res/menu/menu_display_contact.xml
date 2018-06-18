@@ -1,0 +1,13 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto"
+      xmlns:tools="http://schemas.android.com/tools"
+      tools:context="fr.cledant.toto.MainActivity">
+    <item android:id="@+id/menu_display_modify"
+          android:title="@string/menu_display_modify"
+          android:orderInCategory="100"
+          app:showAsAction="never"/>
+    <item android:id="@+id/menu_display_delete"
+          android:title="@string/menu_display_delete"
+          android:orderInCategory="100"
+          app:showAsAction="never"/>
+</menu>
