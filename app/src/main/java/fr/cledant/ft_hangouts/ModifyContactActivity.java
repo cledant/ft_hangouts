@@ -68,11 +68,12 @@ public class ModifyContactActivity extends BaseActivity
 		EditText surname = findViewById(R.id.add_user_surname);
 		EditText email = findViewById(R.id.add_user_email);
 		EditText phone = findViewById(R.id.add_user_phone);
+		String formated_phone = Utility.formatPhoneNumber(phone.getText().toString());
 		Contact contact = new Contact(contact_id, firstname.getText().toString(),
 				lastname.getText().toString(),
 				surname.getText().toString(),
 				email.getText().toString(),
-				phone.getText().toString());
+				formated_phone);
 
 		if (contact.getFirstname().length() == 0 || contact.getLastname().length() == 0)
 		{
