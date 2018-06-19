@@ -1,6 +1,7 @@
 package fr.cledant.ft_hangouts;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -13,6 +14,7 @@ public class DisplayContactActivity extends AppCompatActivity
 		implements View.OnClickListener
 {
 	private long contact_id = -1;
+	private String phone_number = "";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -48,13 +50,16 @@ public class DisplayContactActivity extends AppCompatActivity
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item)
 	{
-
-
 		switch (item.getItemId())
 		{
 			case R.id.menu_display_modify:
 			{
 				modifyContact();
+				return true;
+			}
+			case R.id.menu_display_dial_phone:
+			{
+				dialPhone(phone_number);
 				return true;
 			}
 			case R.id.menu_display_delete:
@@ -109,7 +114,8 @@ public class DisplayContactActivity extends AppCompatActivity
 			dao_lastname += contact.getLastname();
 			dao_surname += contact.getSurname();
 			dao_email += contact.getEmail();
-			dao_phone += contact.getPhonenumber();
+			phone_number = contact.getPhonenumber();
+			dao_phone += phone_number;
 
 			//display
 			firstname.setText(dao_firstname);
@@ -141,5 +147,16 @@ public class DisplayContactActivity extends AppCompatActivity
 		super.onBackPressed();
 		if (contact_id != -1)
 			startActivity(intent);
+	}
+
+	public void dialPhone(String number)
+	{
+		Intent dialIntent = new Intent(Intent.ACTION_DIAL);
+		String uri = String.format("tel: %s", phone_number);
+		dialIntent.setData(Uri.parse(uri));
+		if (dialIntent.resolveActivity(getPackageManager()) != null)
+			startActivity(dialIntent);
+		else
+			super.onBackPressed();
 	}
 }

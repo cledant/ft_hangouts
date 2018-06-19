@@ -1,10 +1,13 @@
 package fr.cledant.ft_hangouts;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Build;
 import android.preference.PreferenceManager;
 import android.telephony.PhoneNumberUtils;
+import android.util.Log;
 
 import java.util.Locale;
 

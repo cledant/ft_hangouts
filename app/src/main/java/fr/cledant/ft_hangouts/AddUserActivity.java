@@ -62,8 +62,8 @@ public class AddUserActivity extends BaseActivity
 		Contact contact = new Contact(0, firstname.getText().toString(),
 				lastname.getText().toString(),
 				surname.getText().toString(),
-				email.getText().toString(),
-				formated_phone);
+				formated_phone,
+				email.getText().toString());
 
 		if (contact.getFirstname().length() == 0 || contact.getLastname().length() == 0)
 		{

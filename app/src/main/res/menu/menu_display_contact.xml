@@ -2,6 +2,11 @@
       xmlns:app="http://schemas.android.com/apk/res-auto"
       xmlns:tools="http://schemas.android.com/tools"
       tools:context="fr.cledant.toto.MainActivity">
+    <item android:id="@+id/menu_display_dial_phone"
+          android:icon="@android:drawable/stat_sys_phone_call"
+          android:title="@string/menu_display_modify"
+          android:orderInCategory="100"
+          app:showAsAction="ifRoom"/>
     <item android:id="@+id/menu_display_modify"
           android:title="@string/menu_display_modify"
           android:orderInCategory="100"
