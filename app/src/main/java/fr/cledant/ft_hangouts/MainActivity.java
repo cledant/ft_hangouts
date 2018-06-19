@@ -12,6 +12,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.GridView;
 
 public class MainActivity extends BaseActivity
 		implements NavigationView.OnNavigationItemSelectedListener
@@ -37,17 +38,8 @@ public class MainActivity extends BaseActivity
 		NavigationView navigationView = findViewById(R.id.nav_view_main);
 		navigationView.setNavigationItemSelectedListener(this);
 
-		//Bind floating buttom
-		FloatingActionButton add_user = findViewById(R.id.main_add_user);
-		add_user.setOnClickListener(new View.OnClickListener()
-		{
-			@Override
-			public void onClick(View view)
-			{
-				Snackbar.make(view, "To do", Snackbar.LENGTH_LONG)
-						.setAction("Action", null).show();
-			}
-		});
+		//Contact Grid
+		GridView gridView = findViewById(R.id.contact_grid);
 	}
 
 	//Back button behaviour
