@@ -89,7 +89,6 @@ public class DAOContact extends DAOBase
 
 	public List<Contact> getContactList()
 	{
-
 		List<Contact> list = new ArrayList<Contact>();
 		String query = "select * from " + DatabaseHandler.CONTACT_TABLE_NAME;
 

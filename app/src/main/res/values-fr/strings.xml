@@ -22,6 +22,9 @@
     <string name="add_user_surname">Surnom</string>
     <string name="add_user_phonenumber">Télephone</string>
     <string name="add_user_mail">Email</string>
+    <string name="add_user_error_names">Prénom et nom doivent être remplis</string>
+    <string name="add_user_ok">Contact ajouté</string>
+    <string name="add_user_picture">Photo du contact</string>
     <!-- Setting Toolbar -->
     <string name="settings_cancel">Annuler</string>
     <string name="settings_save">Sauver</string>
@@ -33,8 +36,7 @@
         <item>Rouge</item>
         <item>Jaune</item>
     </string-array>
-    <string name="add_user_error_names">Prénom et nom doivent être remplis</string>
-    <string name="add_user_ok">Contact ajouté</string>
+    <!-- Display Contact -->
     <string name="display_user_return">Retour</string>
     <string name="display_user_title">Contact info</string>
     <string name="display_firstname">Prénom : </string>
@@ -42,7 +44,9 @@
     <string name="display_surname">Surnom : </string>
     <string name="display_phonenumber">Télephone : </string>
     <string name="display_mail">Email : </string>
+    <!-- Display Menu -->
     <string name="menu_display_modify">Modifier</string>
     <string name="menu_display_delete">Supprimer</string>
+    <!-- Contact Grid -->
     <string name="grid_contact_pic_desc">Photo du contact</string>
 </resources>

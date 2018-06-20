@@ -1,19 +1,31 @@
 package fr.cledant.ft_hangouts;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import java.io.InputStream;
 
 public class AddUserActivity extends BaseActivity
 		implements View.OnClickListener
 {
+	private static int RESULT_LOAD_IMG = 1;
+	final private static String DEFAULT_PATH_IMG = "lol";
+	private String path_img;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
+		InputStream imageStream;
+
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_add_user);
 
@@ -29,6 +41,21 @@ public class AddUserActivity extends BaseActivity
 		cancel.setOnClickListener(this);
 		TextView save = findViewById(R.id.toolbar_add_user_save);
 		save.setOnClickListener(this);
+
+		//Load default image for contact
+		path_img = DEFAULT_PATH_IMG;
+		ImageView image_view = findViewById(R.id.add_user_image);
+		image_view.setOnClickListener(this);
+/*		Uri imageUri = Uri.fromFile(new File(DEFAULT_PATH_IMG));
+		try
+		{
+			imageStream = getContentResolver().openInputStream(imageUri);
+			Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
+		}
+		catch (Exception e)
+		{
+			super.onBackPressed();
+		}*/
 	}
 
 	@Override
@@ -46,6 +73,11 @@ public class AddUserActivity extends BaseActivity
 			case R.id.toolbar_add_user_save:
 			{
 				saveUser(view);
+				break;
+			}
+			case R.id.add_user_image:
+			{
+				select_image();
 				break;
 			}
 		}
@@ -78,5 +110,42 @@ public class AddUserActivity extends BaseActivity
 		intent.putExtra("ID", id);
 		super.onBackPressed();
 		startActivity(intent);
+	}
+
+	public void select_image()
+	{
+		Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
+		photoPickerIntent.setType("image/*");
+		startActivityForResult(photoPickerIntent, RESULT_LOAD_IMG);
+	}
+
+	@Override
+	protected void onActivityResult(int reqCode, int resultCode, Intent data)
+	{
+		super.onActivityResult(reqCode, resultCode, data);
+		ImageView image_view = findViewById(R.id.add_user_image);
+		switch (resultCode)
+		{
+			case RESULT_OK:
+			{
+				try
+				{
+					Uri imageUri = data.getData();
+					path_img = imageUri.toString();
+					Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imageUri);
+					image_view.setImageBitmap(bitmap);
+				}
+				catch (Exception e)
+				{
+					path_img = DEFAULT_PATH_IMG;
+				}
+				break;
+			}
+			default:
+			{
+				path_img = DEFAULT_PATH_IMG;
+				break;
+			}
+		}
 	}
 }

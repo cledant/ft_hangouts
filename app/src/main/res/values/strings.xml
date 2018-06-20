@@ -21,6 +21,9 @@
     <string name="add_user_surname">Surname</string>
     <string name="add_user_phonenumber">Phone</string>
     <string name="add_user_mail">Email</string>
+    <string name="add_user_error_names">Firstname and lastname must be filled</string>
+    <string name="add_user_ok">Contact added</string>
+    <string name="add_user_picture">Contact Image</string>
     <!-- Setting Toolbar -->
     <string name="settings_cancel">Cancel</string>
     <string name="settings_save">Save</string>
@@ -32,8 +35,7 @@
         <item>Red</item>
         <item>Yellow</item>
     </string-array>
-    <string name="add_user_error_names">Firstname and lastname must be filled</string>
-    <string name="add_user_ok">Contact added</string>
+    <!-- Display Contact -->
     <string name="display_user_return">Return</string>
     <string name="display_user_title">Contact info</string>
     <string name="display_firstname">First name : </string>
@@ -41,7 +43,9 @@
     <string name="display_surname">Surname : </string>
     <string name="display_phonenumber">Phone : </string>
     <string name="display_mail">Email : </string>
+    <!-- Display Menu -->
     <string name="menu_display_modify">Modify</string>
     <string name="menu_display_delete">Delete</string>
+    <!-- Contact Grid -->
     <string name="grid_contact_pic_desc">Contact Picture</string>
 </resources>
