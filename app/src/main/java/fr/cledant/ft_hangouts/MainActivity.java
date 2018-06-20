@@ -2,8 +2,6 @@ package fr.cledant.ft_hangouts;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -12,10 +10,14 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.AdapterView;
 import android.widget.GridView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MainActivity extends BaseActivity
-		implements NavigationView.OnNavigationItemSelectedListener
+		implements NavigationView.OnNavigationItemSelectedListener, AdapterView.OnItemClickListener
 {
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -40,6 +42,40 @@ public class MainActivity extends BaseActivity
 
 		//Contact Grid
 		GridView gridView = findViewById(R.id.contact_grid);
+		List<Contact> image_details = getContactData();
+		gridView.setAdapter(new ContactGridAdapter(this, image_details));
+		gridView.setOnItemClickListener(this);
+	}
+
+	//Test data for display
+	private List<Contact> getContactData()
+	{
+		List<Contact> list = new ArrayList<Contact>();
+		Contact toto = new Contact(1, "To", "To", "Toto", "", "");
+		Contact titi = new Contact(1, "Ti", "Ti", "Titi", "", "");
+		Contact tata = new Contact(1, "Ta", "Ta", "Tata", "", "");
+		Contact foo = new Contact(1, "Foo", "Bar", "", "", "");
+		Contact bar = new Contact(1, "Bar", "Foo", "", "", "");
+
+		list.add(toto);
+		list.add(titi);
+		list.add(tata);
+		list.add(foo);
+		list.add(bar);
+
+		return list;
+	}
+
+	//Click on GridView Item behaviour
+	@Override
+	public void onItemClick(AdapterView<?> a, View v, int position, long id)
+	{
+		GridView gridView = findViewById(R.id.contact_grid);
+		Contact contact = (Contact) gridView.getItemAtPosition(position);
+
+		Intent intent = new Intent(this, DisplayContactActivity.class);
+		intent.putExtra("ID", contact.getId());
+		startActivity(intent);
 	}
 
 	//Back button behaviour
