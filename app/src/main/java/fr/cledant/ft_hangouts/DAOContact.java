@@ -4,6 +4,9 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class DAOContact extends DAOBase
 {
 	public DAOContact(Context context)
@@ -82,5 +85,31 @@ public class DAOContact extends DAOBase
 		}
 		this.close();
 		return id;
+	}
+
+	public List<Contact> getContactList()
+	{
+
+		List<Contact> list = new ArrayList<Contact>();
+		String query = "select * from " + DatabaseHandler.CONTACT_TABLE_NAME;
+
+		this.open();
+		Cursor cursor = db.rawQuery(query, null);
+		if ((cursor != null) && (cursor.getCount() > 0))
+		{
+			while (cursor.moveToNext())
+			{
+				Contact contact = new Contact(cursor.getLong(0),
+						cursor.getString(1),
+						cursor.getString(2),
+						cursor.getString(3),
+						cursor.getString(4),
+						cursor.getString(5));
+				list.add(contact);
+			}
+			cursor.close();
+		}
+		this.close();
+		return list;
 	}
 }

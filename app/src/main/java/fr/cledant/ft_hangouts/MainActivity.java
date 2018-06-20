@@ -13,7 +13,6 @@ import android.view.MenuItem;
 import android.widget.AdapterView;
 import android.widget.GridView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends BaseActivity
@@ -41,29 +40,15 @@ public class MainActivity extends BaseActivity
 		navigationView.setNavigationItemSelectedListener(this);
 
 		//Contact Grid
-		GridView gridView = findViewById(R.id.contact_grid);
-		List<Contact> image_details = getContactData();
-		gridView.setAdapter(new ContactGridAdapter(this, image_details));
-		gridView.setOnItemClickListener(this);
+		setContactInView();
 	}
 
-	//Test data for display
-	private List<Contact> getContactData()
+	//Update View at Resume
+	@Override
+	public void onResume()
 	{
-		List<Contact> list = new ArrayList<Contact>();
-		Contact toto = new Contact(1, "To", "To", "Toto", "", "");
-		Contact titi = new Contact(1, "Ti", "Ti", "Titi", "", "");
-		Contact tata = new Contact(1, "Ta", "Ta", "Tata", "", "");
-		Contact foo = new Contact(1, "Foo", "Bar", "", "", "");
-		Contact bar = new Contact(1, "Bar", "Foo", "", "", "");
-
-		list.add(toto);
-		list.add(titi);
-		list.add(tata);
-		list.add(foo);
-		list.add(bar);
-
-		return list;
+		super.onResume();
+		setContactInView();
 	}
 
 	//Click on GridView Item behaviour
@@ -137,5 +122,14 @@ public class MainActivity extends BaseActivity
 		DrawerLayout drawer = findViewById(R.id.drawer_layout_main);
 		drawer.closeDrawer(GravityCompat.START);
 		return true;
+	}
+
+	public void setContactInView()
+	{
+		GridView gridView = findViewById(R.id.contact_grid);
+		DAOContact dao_contact = new DAOContact(getApplicationContext());
+		List<Contact> image_details = dao_contact.getContactList();
+		gridView.setAdapter(new ContactGridAdapter(this, image_details));
+		gridView.setOnItemClickListener(this);
 	}
 }
