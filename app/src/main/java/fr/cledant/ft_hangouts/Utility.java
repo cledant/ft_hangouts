@@ -37,4 +37,16 @@ public class Utility
 			return raw_number;
 		return formated_number;
 	}
+
+	public static void setDummyTrigger(Context context, boolean val)
+	{
+		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+		prefs.edit().putBoolean("DummyDB", val).apply();
+	}
+
+	public static boolean getDummyTrigger(Context context)
+	{
+		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+		return prefs.getBoolean("DummyDB", false);
+	}
 }

@@ -43,6 +43,9 @@ public class MainActivity extends BaseActivity
 		setContactInView();
 		GridView gridView = findViewById(R.id.contact_grid);
 		gridView.setOnItemClickListener(this);
+
+		//Debug
+		addDummyContact();
 	}
 
 	//Update View at Resume
@@ -132,5 +135,19 @@ public class MainActivity extends BaseActivity
 		DAOContact dao_contact = new DAOContact(getApplicationContext());
 		List<Contact> image_details = dao_contact.getContactList();
 		gridView.setAdapter(new ContactGridAdapter(this, image_details));
+	}
+
+	public void addDummyContact()
+	{
+		if (Utility.getDummyTrigger(getApplicationContext()))
+			return;
+		DAOContact dao = new DAOContact(getApplicationContext());
+		dao.open();
+		for (long i = 0; i < 100; i++)
+		{
+			dao.create(new Contact(0, "Foo", "Bar", "", "06666666", ""));
+		}
+		dao.close();
+		Utility.setDummyTrigger(getApplicationContext(), true);
 	}
 }
