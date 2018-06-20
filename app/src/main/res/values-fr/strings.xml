@@ -44,4 +44,5 @@
     <string name="display_mail">Email : </string>
     <string name="menu_display_modify">Modifier</string>
     <string name="menu_display_delete">Supprimer</string>
+    <string name="grid_contact_pic_desc">Photo du contact</string>
 </resources>

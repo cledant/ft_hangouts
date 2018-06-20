@@ -41,6 +41,8 @@ public class MainActivity extends BaseActivity
 
 		//Contact Grid
 		setContactInView();
+		GridView gridView = findViewById(R.id.contact_grid);
+		gridView.setOnItemClickListener(this);
 	}
 
 	//Update View at Resume
@@ -130,6 +132,5 @@ public class MainActivity extends BaseActivity
 		DAOContact dao_contact = new DAOContact(getApplicationContext());
 		List<Contact> image_details = dao_contact.getContactList();
 		gridView.setAdapter(new ContactGridAdapter(this, image_details));
-		gridView.setOnItemClickListener(this);
 	}
 }

@@ -11,6 +11,6 @@
 
     <GridView
             android:layout_width="match_parent"
-            android:layout_height="match_parent" android:numColumns="auto_fit" android:columnWidth="120dp"
+            android:layout_height="match_parent" android:numColumns="auto_fit" android:columnWidth="176dp"
             android:gravity="center" android:id="@+id/contact_grid"/>
 </RelativeLayout>
