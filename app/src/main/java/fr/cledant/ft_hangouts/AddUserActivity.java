@@ -1,7 +1,9 @@
 package fr.cledant.ft_hangouts;
 
 import android.content.Intent;
+import android.content.res.AssetManager;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -18,13 +20,14 @@ public class AddUserActivity extends BaseActivity
 		implements View.OnClickListener
 {
 	private static int RESULT_LOAD_IMG = 1;
-	final private static String DEFAULT_PATH_IMG = "lol";
+	final private static String DEFAULT_IMG = "renko.png";
 	private String path_img;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		InputStream imageStream;
+		AssetManager assetManager = getAssets();
 
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_add_user);
@@ -43,19 +46,19 @@ public class AddUserActivity extends BaseActivity
 		save.setOnClickListener(this);
 
 		//Load default image for contact
-		path_img = DEFAULT_PATH_IMG;
+		path_img = DEFAULT_IMG;
 		ImageView image_view = findViewById(R.id.add_user_image);
 		image_view.setOnClickListener(this);
-/*		Uri imageUri = Uri.fromFile(new File(DEFAULT_PATH_IMG));
 		try
 		{
-			imageStream = getContentResolver().openInputStream(imageUri);
-			Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
+			InputStream is = assetManager.open(DEFAULT_IMG);
+			Bitmap bitmap = BitmapFactory.decodeStream(is);
+			image_view.setImageBitmap(bitmap);
 		}
 		catch (Exception e)
 		{
 			super.onBackPressed();
-		}*/
+		}
 	}
 
 	@Override
@@ -124,6 +127,7 @@ public class AddUserActivity extends BaseActivity
 	{
 		super.onActivityResult(reqCode, resultCode, data);
 		ImageView image_view = findViewById(R.id.add_user_image);
+		String backup = path_img;
 		switch (resultCode)
 		{
 			case RESULT_OK:
@@ -137,13 +141,13 @@ public class AddUserActivity extends BaseActivity
 				}
 				catch (Exception e)
 				{
-					path_img = DEFAULT_PATH_IMG;
+					path_img = backup;
 				}
 				break;
 			}
 			default:
 			{
-				path_img = DEFAULT_PATH_IMG;
+				path_img = backup;
 				break;
 			}
 		}
