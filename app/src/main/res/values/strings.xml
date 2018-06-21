@@ -24,6 +24,8 @@
     <string name="add_user_error_names">Firstname and lastname must be filled</string>
     <string name="add_user_ok">Contact added</string>
     <string name="add_user_picture">Contact Image</string>
+    <!-- Modify User Toolbar -->
+    <string name="modify_user_title">Modify user</string>
     <!-- Setting Toolbar -->
     <string name="settings_cancel">Cancel</string>
     <string name="settings_save">Save</string>

@@ -25,6 +25,8 @@
     <string name="add_user_error_names">Prénom et nom doivent être remplis</string>
     <string name="add_user_ok">Contact ajouté</string>
     <string name="add_user_picture">Photo du contact</string>
+    <!-- Modify User Toolbar -->
+    <string name="modify_user_title">Modifier Contact</string>
     <!-- Setting Toolbar -->
     <string name="settings_cancel">Annuler</string>
     <string name="settings_save">Sauver</string>
