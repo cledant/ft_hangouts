@@ -1,6 +1,9 @@
 package fr.cledant.ft_hangouts;
 
 import android.content.Intent;
+import android.content.res.AssetManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -8,7 +11,12 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 
 public class DisplayContactActivity extends AppCompatActivity
 		implements View.OnClickListener
@@ -38,6 +46,14 @@ public class DisplayContactActivity extends AppCompatActivity
 		if (bundle != null)
 			contact_id = bundle.getLong("ID");
 		displayContactInfo();
+		try
+		{
+			displayContactImage();
+		}
+		catch (Exception e)
+		{
+			return;
+		}
 	}
 
 	@Override
@@ -158,5 +174,29 @@ public class DisplayContactActivity extends AppCompatActivity
 			startActivity(dialIntent);
 		else
 			super.onBackPressed();
+	}
+
+	public void displayContactImage() throws IOException
+	{
+		if (contact_id == -1)
+			return;
+
+		AssetManager assetManager = getApplicationContext().getAssets();
+		DAOContact dao = new DAOContact(getApplicationContext());
+		Contact contact = dao.select(contact_id);
+		String path = contact.getImagePath();
+		ImageView iw = findViewById(R.id.display_user_image);
+
+		if (!path.equals(""))
+		{
+			if (path.equals(Utility.DEFAULT_IMG))
+			{
+				InputStream is = assetManager.open(path);
+				Bitmap bitmap = BitmapFactory.decodeStream(is);
+				iw.setImageBitmap(bitmap);
+			}
+			else
+				iw.setImageURI(Uri.parse(path));
+		}
 	}
 }

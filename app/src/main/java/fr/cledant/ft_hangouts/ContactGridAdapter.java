@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -96,16 +97,17 @@ public class ContactGridAdapter extends BaseAdapter
 	private void loadImage(String path, ViewHolder holder) throws IOException
 	{
 		AssetManager assetManager = context.getAssets();
-		InputStream is;
 
 		if (!path.equals(""))
 		{
 			if (path.equals(Utility.DEFAULT_IMG))
-				is = assetManager.open(path);
+			{
+				InputStream is = assetManager.open(path);
+				Bitmap bitmap = BitmapFactory.decodeStream(is);
+				holder.contactPic.setImageBitmap(bitmap);
+			}
 			else
-				is = new FileInputStream(path);
-			Bitmap bitmap = BitmapFactory.decodeStream(is);
-			holder.contactPic.setImageBitmap(bitmap);
+				holder.contactPic.setImageURI(Uri.parse(path));
 		}
 	}
 }
