@@ -13,6 +13,8 @@ import java.util.Locale;
 
 public class Utility
 {
+	final public static String DEFAULT_IMG = "renko.png";
+
 	public static void setThemePref(Context context, int theme)
 	{
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);

@@ -19,9 +19,8 @@ import java.io.InputStream;
 public class AddUserActivity extends BaseActivity
 		implements View.OnClickListener
 {
-	private static int RESULT_LOAD_IMG = 1;
-	final private static String DEFAULT_IMG = "renko.png";
-	private String path_img;
+	final private static int RESULT_LOAD_IMG = 1;
+	private String path_img = Utility.DEFAULT_IMG;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -46,12 +45,11 @@ public class AddUserActivity extends BaseActivity
 		save.setOnClickListener(this);
 
 		//Load default image for contact
-		path_img = DEFAULT_IMG;
 		ImageView image_view = findViewById(R.id.add_user_image);
 		image_view.setOnClickListener(this);
 		try
 		{
-			InputStream is = assetManager.open(DEFAULT_IMG);
+			InputStream is = assetManager.open(Utility.DEFAULT_IMG);
 			Bitmap bitmap = BitmapFactory.decodeStream(is);
 			image_view.setImageBitmap(bitmap);
 		}
@@ -86,6 +84,37 @@ public class AddUserActivity extends BaseActivity
 		}
 	}
 
+	@Override
+	protected void onActivityResult(int reqCode, int resultCode, Intent data)
+	{
+		super.onActivityResult(reqCode, resultCode, data);
+		ImageView image_view = findViewById(R.id.add_user_image);
+		String backup = path_img;
+		switch (resultCode)
+		{
+			case RESULT_OK:
+			{
+				try
+				{
+					Uri imageUri = data.getData();
+					this.path_img = imageUri.toString();
+					Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imageUri);
+					image_view.setImageBitmap(bitmap);
+				}
+				catch (Exception e)
+				{
+					this.path_img = backup;
+				}
+				break;
+			}
+			default:
+			{
+				this.path_img = backup;
+				break;
+			}
+		}
+	}
+
 	public void saveUser(View view)
 	{
 		EditText firstname = findViewById(R.id.add_user_firstname);
@@ -98,7 +127,8 @@ public class AddUserActivity extends BaseActivity
 				lastname.getText().toString(),
 				surname.getText().toString(),
 				formated_phone,
-				email.getText().toString());
+				email.getText().toString(),
+				this.path_img);
 
 		if (contact.getFirstname().length() == 0 || contact.getLastname().length() == 0)
 		{
@@ -120,36 +150,5 @@ public class AddUserActivity extends BaseActivity
 		Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
 		photoPickerIntent.setType("image/*");
 		startActivityForResult(photoPickerIntent, RESULT_LOAD_IMG);
-	}
-
-	@Override
-	protected void onActivityResult(int reqCode, int resultCode, Intent data)
-	{
-		super.onActivityResult(reqCode, resultCode, data);
-		ImageView image_view = findViewById(R.id.add_user_image);
-		String backup = path_img;
-		switch (resultCode)
-		{
-			case RESULT_OK:
-			{
-				try
-				{
-					Uri imageUri = data.getData();
-					path_img = imageUri.toString();
-					Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imageUri);
-					image_view.setImageBitmap(bitmap);
-				}
-				catch (Exception e)
-				{
-					path_img = backup;
-				}
-				break;
-			}
-			default:
-			{
-				path_img = backup;
-				break;
-			}
-		}
 	}
 }

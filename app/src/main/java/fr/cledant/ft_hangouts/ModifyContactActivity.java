@@ -73,7 +73,8 @@ public class ModifyContactActivity extends BaseActivity
 				lastname.getText().toString(),
 				surname.getText().toString(),
 				formated_phone,
-				email.getText().toString());
+				email.getText().toString(),
+				"");
 
 		if (contact.getFirstname().length() == 0 || contact.getLastname().length() == 0)
 		{

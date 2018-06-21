@@ -8,9 +8,11 @@ public class Contact
 	private String surname;
 	private String phonenumber;
 	private String email;
+	private String image_path;
 
 	public Contact(long id, String firstname, String lastname,
-				   String surname, String phonenumber, String email)
+				   String surname, String phonenumber, String email,
+				   String img_path)
 	{
 		this.id = id;
 		this.firstname = firstname;
@@ -18,6 +20,7 @@ public class Contact
 		this.surname = surname;
 		this.phonenumber = phonenumber;
 		this.email = email;
+		this.image_path = img_path;
 	}
 
 	/*
@@ -54,6 +57,11 @@ public class Contact
 		this.email = email;
 	}
 
+	public void setImagePath(String img_path)
+	{
+		this.image_path = img_path;
+	}
+
 	/*
 		Getters
 	 */
@@ -86,5 +94,10 @@ public class Contact
 	public String getEmail()
 	{
 		return this.email;
+	}
+
+	public String getImagePath()
+	{
+		return this.image_path;
 	}
 }

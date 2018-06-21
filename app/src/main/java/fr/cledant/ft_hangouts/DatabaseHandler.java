@@ -13,6 +13,7 @@ public class DatabaseHandler extends SQLiteOpenHelper
 	public static final String CONTACT_SURNAME = "surname";
 	public static final String CONTACT_PHONENUMBER = "phonenumber";
 	public static final String CONTACT_EMAIL = "email";
+	public static final String CONTACT_IMG = "img";
 
 	//Creation + delete for contact
 	public static final String CONTACT_TABLE_NAME = "Contact";
@@ -23,7 +24,8 @@ public class DatabaseHandler extends SQLiteOpenHelper
 					CONTACT_LASTNAME + " TEXT, " +
 					CONTACT_SURNAME + " TEXT, " +
 					CONTACT_PHONENUMBER + " TEXT, " +
-					CONTACT_EMAIL + " TEXT);";
+					CONTACT_EMAIL + " TEXT, " +
+					CONTACT_IMG + " TEXT);";
 	public static final String CONTACT_TABLE_DROP = "DROP TABLE IF EXISTS " + CONTACT_TABLE_NAME + ";";
 
 	public DatabaseHandler(Context context, String name, SQLiteDatabase.CursorFactory factory, int version)

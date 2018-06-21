@@ -1,6 +1,9 @@
 package fr.cledant.ft_hangouts;
 
 import android.content.Context;
+import android.content.res.AssetManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,6 +11,9 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 
 public class ContactGridAdapter extends BaseAdapter
@@ -15,6 +21,13 @@ public class ContactGridAdapter extends BaseAdapter
 	private List<Contact> listData;
 	private LayoutInflater layoutInflater;
 	private Context context;
+
+	static class ViewHolder
+	{
+		ImageView contactPic;
+		TextView name;
+		TextView phoneNumber;
+	}
 
 	public ContactGridAdapter(Context aContext, List<Contact> listData)
 	{
@@ -56,27 +69,43 @@ public class ContactGridAdapter extends BaseAdapter
 		}
 		else
 			holder = (ViewHolder) convertView.getTag();
-
-		holder.setView(this.listData.get(position));
+		this.setViewField(this.listData.get(position), holder);
 		return convertView;
 	}
 
-	static class ViewHolder
+	private void setViewField(Contact contact, ViewHolder holder)
 	{
-		ImageView contactPic;
-		TextView name;
-		TextView phoneNumber;
-
-		public void setView(Contact contact)
+		if (contact.getSurname().equals(""))
 		{
-			if (contact.getSurname().equals(""))
-			{
-				String concat_name = contact.getFirstname() + " " + contact.getLastname();
-				this.name.setText(concat_name);
-			}
+			String concat_name = contact.getFirstname() + " " + contact.getLastname();
+			holder.name.setText(concat_name);
+		}
+		else
+			holder.name.setText(contact.getSurname());
+		holder.phoneNumber.setText(contact.getPhonenumber());
+		try
+		{
+			loadImage(contact.getImagePath(), holder);
+		}
+		catch (Exception e)
+		{
+			return;
+		}
+	}
+
+	private void loadImage(String path, ViewHolder holder) throws IOException
+	{
+		AssetManager assetManager = context.getAssets();
+		InputStream is;
+
+		if (!path.equals(""))
+		{
+			if (path.equals(Utility.DEFAULT_IMG))
+				is = assetManager.open(path);
 			else
-				this.name.setText(contact.getSurname());
-			this.phoneNumber.setText(contact.getPhonenumber());
+				is = new FileInputStream(path);
+			Bitmap bitmap = BitmapFactory.decodeStream(is);
+			holder.contactPic.setImageBitmap(bitmap);
 		}
 	}
 }

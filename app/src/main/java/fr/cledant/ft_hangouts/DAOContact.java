@@ -22,6 +22,7 @@ public class DAOContact extends DAOBase
 		value.put(DatabaseHandler.CONTACT_SURNAME, contact.getSurname());
 		value.put(DatabaseHandler.CONTACT_EMAIL, contact.getEmail());
 		value.put(DatabaseHandler.CONTACT_PHONENUMBER, contact.getPhonenumber());
+		value.put(DatabaseHandler.CONTACT_IMG, contact.getImagePath());
 		this.open();
 		this.db.insert(DatabaseHandler.CONTACT_TABLE_NAME, null, value);
 		this.close();
@@ -43,6 +44,7 @@ public class DAOContact extends DAOBase
 		value.put(DatabaseHandler.CONTACT_SURNAME, contact.getSurname());
 		value.put(DatabaseHandler.CONTACT_EMAIL, contact.getEmail());
 		value.put(DatabaseHandler.CONTACT_PHONENUMBER, contact.getPhonenumber());
+		value.put(DatabaseHandler.CONTACT_IMG, contact.getImagePath());
 		this.open();
 		this.db.update(DatabaseHandler.CONTACT_TABLE_NAME, value, DatabaseHandler.CONTACT_KEY + " = ?",
 				new String[]{String.valueOf(contact.getId())});
@@ -51,7 +53,7 @@ public class DAOContact extends DAOBase
 
 	public Contact select(long id)
 	{
-		Contact contact = new Contact(-1, "", "", "", "", "");
+		Contact contact = new Contact(-1, "", "", "", "", "", "");
 		String query = "select * from " + DatabaseHandler.CONTACT_TABLE_NAME + " where " + DatabaseHandler.CONTACT_KEY + " = ?";
 		this.open();
 		Cursor cursor = db.rawQuery(query, new String[]{String.valueOf(id)});
@@ -64,6 +66,7 @@ public class DAOContact extends DAOBase
 			contact.setSurname(cursor.getString(3));
 			contact.setPhonenumber(cursor.getString(4));
 			contact.setEmail(cursor.getString(5));
+			contact.setImagePath(cursor.getString(6));
 			cursor.close();
 		}
 		this.close();
@@ -103,7 +106,8 @@ public class DAOContact extends DAOBase
 						cursor.getString(2),
 						cursor.getString(3),
 						cursor.getString(4),
-						cursor.getString(5));
+						cursor.getString(5),
+						cursor.getString(6));
 				list.add(contact);
 			}
 			cursor.close();
