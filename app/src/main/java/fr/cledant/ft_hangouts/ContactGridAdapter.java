@@ -5,6 +5,7 @@ import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +13,6 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
@@ -90,7 +90,7 @@ public class ContactGridAdapter extends BaseAdapter
 		}
 		catch (Exception e)
 		{
-			return;
+			Log.e("IMG_LOADING", "ContactGridAdapter Image loading error");
 		}
 	}
 
@@ -98,16 +98,22 @@ public class ContactGridAdapter extends BaseAdapter
 	{
 		AssetManager assetManager = context.getAssets();
 
-		if (!path.equals(""))
+		switch (path)
 		{
-			if (path.equals(Utility.DEFAULT_IMG))
+			case "":
+				break;
+			case Utility.DEFAULT_IMG:
 			{
 				InputStream is = assetManager.open(path);
 				Bitmap bitmap = BitmapFactory.decodeStream(is);
 				holder.contactPic.setImageBitmap(bitmap);
+				break;
 			}
-			else
+			default:
+			{
 				holder.contactPic.setImageURI(Uri.parse(path));
+				break;
+			}
 		}
 	}
 }

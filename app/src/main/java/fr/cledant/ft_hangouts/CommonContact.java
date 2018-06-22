@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -20,6 +21,16 @@ public abstract class CommonContact extends BaseActivity
 	protected String path_img = Utility.DEFAULT_IMG;
 	protected long contact_id = -1;
 	protected AssetManager assetManager = null;
+	protected Toolbar toolbar = null;
+	protected TextView cancel = null;
+	protected TextView save = null;
+	protected TextView title = null;
+	protected ImageView image_view = null;
+	protected EditText firstname = null;
+	protected EditText lastname = null;
+	protected EditText surname = null;
+	protected EditText email = null;
+	protected EditText phone = null;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -30,17 +41,31 @@ public abstract class CommonContact extends BaseActivity
 		setContentView(R.layout.activity_add_user);
 
 		//Bind Toolbar
-		Toolbar toolbar = findViewById(R.id.toolbar_add_user);
+		toolbar = findViewById(R.id.toolbar_add_user);
 		setSupportActionBar(toolbar);
 
 		//Disable Action bar title
 		getSupportActionBar().setDisplayShowTitleEnabled(false);
 
+		//Get title text
+		title = findViewById(R.id.toolbar_add_user_title);
+
 		//Bind Buttons
-		TextView cancel = findViewById(R.id.toolbar_add_user_cancel);
+		cancel = findViewById(R.id.toolbar_add_user_cancel);
 		cancel.setOnClickListener(this);
-		TextView save = findViewById(R.id.toolbar_add_user_save);
+		save = findViewById(R.id.toolbar_add_user_save);
 		save.setOnClickListener(this);
+
+		//Load default image for contact
+		image_view = findViewById(R.id.add_user_image);
+		image_view.setOnClickListener(this);
+
+		//Saving EditText field
+		firstname = findViewById(R.id.add_user_firstname);
+		lastname = findViewById(R.id.add_user_lastname);
+		surname = findViewById(R.id.add_user_surname);
+		email = findViewById(R.id.add_user_email);
+		phone = findViewById(R.id.add_user_phone);
 	}
 
 	@Override
@@ -72,7 +97,8 @@ public abstract class CommonContact extends BaseActivity
 	protected void onActivityResult(int reqCode, int resultCode, Intent data)
 	{
 		super.onActivityResult(reqCode, resultCode, data);
-		ImageView image_view = findViewById(R.id.add_user_image);
+
+		//Image Retriver
 		String backup = path_img;
 		switch (resultCode)
 		{
@@ -88,6 +114,7 @@ public abstract class CommonContact extends BaseActivity
 				catch (Exception e)
 				{
 					this.path_img = backup;
+					Log.e("IMG_LOADING", "CommonContact Image loading error");
 				}
 				break;
 			}
@@ -101,11 +128,6 @@ public abstract class CommonContact extends BaseActivity
 
 	public void saveUser(View view)
 	{
-		EditText firstname = findViewById(R.id.add_user_firstname);
-		EditText lastname = findViewById(R.id.add_user_lastname);
-		EditText surname = findViewById(R.id.add_user_surname);
-		EditText email = findViewById(R.id.add_user_email);
-		EditText phone = findViewById(R.id.add_user_phone);
 		String formated_phone = Utility.formatPhoneNumber(phone.getText().toString());
 		Contact contact = new Contact(this.contact_id, firstname.getText().toString(),
 				lastname.getText().toString(),

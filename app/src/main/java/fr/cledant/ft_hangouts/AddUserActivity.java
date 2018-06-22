@@ -3,6 +3,7 @@ package fr.cledant.ft_hangouts;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ImageView;
 
 import java.io.InputStream;
@@ -14,9 +15,6 @@ public class AddUserActivity extends CommonContact
 	{
 		super.onCreate(savedInstanceState);
 
-		//Load default image for contact
-		ImageView image_view = findViewById(R.id.add_user_image);
-		image_view.setOnClickListener(this);
 		try
 		{
 			InputStream is = assetManager.open(Utility.DEFAULT_IMG);
@@ -25,7 +23,7 @@ public class AddUserActivity extends CommonContact
 		}
 		catch (Exception e)
 		{
-			return;
+			Log.e("IMG_LOADING", "AddUser Default image loading error");
 		}
 	}
 }
