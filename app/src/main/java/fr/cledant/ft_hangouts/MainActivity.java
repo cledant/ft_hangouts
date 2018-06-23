@@ -1,7 +1,12 @@
 package fr.cledant.ft_hangouts;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -13,14 +18,22 @@ import android.view.MenuItem;
 import android.widget.AdapterView;
 import android.widget.GridView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends BaseActivity
 		implements NavigationView.OnNavigationItemSelectedListener, AdapterView.OnItemClickListener
 {
+	final private static int REQUEST_PERMISSION = 100;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
+		//Permission check
+		String[] list_perm = new String[]{Manifest.permission.READ_EXTERNAL_STORAGE,
+				Manifest.permission.CALL_PHONE};
+		askPermissions(list_perm, REQUEST_PERMISSION);
+
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
@@ -151,5 +164,21 @@ public class MainActivity extends BaseActivity
 		}
 		dao.close();
 		Utility.setDummyTrigger(getApplicationContext(), true);
+	}
+
+	public void askPermissions(String[] permissions, int request_code)
+	{
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
+		{
+			for (int i = 0; i < permissions.length; i++)
+			{
+				if (ContextCompat.checkSelfPermission(getApplicationContext(), permissions[i])
+						!= PackageManager.PERMISSION_GRANTED)
+				{
+					ActivityCompat.requestPermissions(this, permissions, request_code);
+					break;
+				}
+			}
+		}
 	}
 }
