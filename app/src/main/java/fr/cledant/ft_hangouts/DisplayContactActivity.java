@@ -19,7 +19,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
-public class DisplayContactActivity extends AppCompatActivity
+public class DisplayContactActivity extends BaseActivity
 		implements View.OnClickListener
 {
 	private long contact_id = -1;
