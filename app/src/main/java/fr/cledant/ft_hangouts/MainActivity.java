@@ -76,7 +76,7 @@ public class MainActivity extends BaseActivity
 		GridView gridView = findViewById(R.id.contact_grid);
 		Contact contact = (Contact) gridView.getItemAtPosition(position);
 
-		Intent intent = new Intent(this, DisplayContactActivity.class);
+		Intent intent = new Intent(this, MessagePanelActivity.class);
 		intent.putExtra("ID", contact.getId());
 		startActivity(intent);
 	}

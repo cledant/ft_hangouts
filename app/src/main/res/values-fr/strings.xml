@@ -51,4 +51,9 @@
     <string name="menu_display_delete">Supprimer</string>
     <!-- Contact Grid -->
     <string name="grid_contact_pic_desc">Photo du contact</string>
+    <!-- Message Panel toolbar-->
+    <string name="message_panel_description">Messages</string>
+    <string name="message_panel_return">Retour</string>
+    <string name="message_panel_view">Voir contact</string>
+    <string name="message_panel_phone">Téléphoner</string>
 </resources>

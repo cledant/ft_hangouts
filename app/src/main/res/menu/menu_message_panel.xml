@@ -1,0 +1,14 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto"
+      xmlns:tools="http://schemas.android.com/tools"
+      tools:context="fr.cledant.toto.MainActivity">
+    <item android:id="@+id/menu_message_panel_phone"
+          android:icon="@android:drawable/stat_sys_phone_call"
+          android:title="@string/message_panel_phone"
+          android:orderInCategory="100"
+          app:showAsAction="ifRoom"/>
+    <item android:id="@+id/menu_message_panel_view"
+          android:title="@string/message_panel_view"
+          android:orderInCategory="100"
+          app:showAsAction="never"/>
+</menu>

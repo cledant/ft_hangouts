@@ -50,4 +50,9 @@
     <string name="menu_display_delete">Delete</string>
     <!-- Contact Grid -->
     <string name="grid_contact_pic_desc">Contact Picture</string>
+    <!-- Message Panel toolbar-->
+    <string name="message_panel_description">Messages</string>
+    <string name="message_panel_return">Return</string>
+    <string name="message_panel_view">View contact</string>
+    <string name="message_panel_phone">Phone</string>
 </resources>

@@ -2,8 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="fr.cledant.ft_hangouts">
 
-    <uses-permission android:name="android.permission.CALL_PHONE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CALL_PHONE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <application
             android:icon="@mipmap/ic_launcher_foreground"
             android:allowBackup="true"
@@ -42,6 +42,16 @@
                     android:value="fr.cledant.ft_hangouts.MainActivity"/>
         </activity>
         <activity
+                android:name=".MessagePanelActivity"
+                android:label="@string/app_name"
+                android:theme="@style/AppTheme.Blue.NoActionBar"
+                android:parentActivityName="fr.cledant.ft_hangouts.MainActivity">
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                    android:name="android.support.PARENT_ACTIVITY"
+                    android:value="fr.cledant.ft_hangouts.MainActivity"/>
+        </activity>
+        <activity
                 android:name=".BaseActivity"
                 android:label="@string/app_name"
                 android:theme="@style/AppTheme.Blue.NoActionBar">
@@ -49,7 +59,12 @@
         <activity
                 android:name=".DisplayContactActivity"
                 android:label="@string/app_name"
-                android:theme="@style/AppTheme.Blue.NoActionBar">
+                android:theme="@style/AppTheme.Blue.NoActionBar"
+                android:parentActivityName="fr.cledant.ft_hangouts.MessagePanelActivity">
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                    android:name="android.support.PARENT_ACTIVITY"
+                    android:value="fr.cledant.ft_hangouts.MessagePanelActivity"/>
         </activity>
         <activity
                 android:name=".ModifyContactActivity"
