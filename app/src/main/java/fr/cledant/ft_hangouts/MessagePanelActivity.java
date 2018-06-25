@@ -74,10 +74,6 @@ public class MessagePanelActivity extends BaseActivity
 				dialPhone(phone_number);
 				return true;
 			}
-			case R.id.message_panel_send_sms:
-			{
-				return true;
-			}
 			default:
 				return super.onOptionsItemSelected(item);
 		}
@@ -91,9 +87,16 @@ public class MessagePanelActivity extends BaseActivity
 			default:
 				break;
 			case R.id.toolbar_message_panel_return:
+			{
 				super.onBackPressed();
 				break;
+			}
+			case R.id.message_panel_send_sms:
+			{
+				break;
+			}
 		}
+
 	}
 
 	public void dialPhone(String number)
