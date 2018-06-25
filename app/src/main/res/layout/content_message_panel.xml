@@ -12,5 +12,26 @@
     <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+        <EditText
+                android:hint="@string/message_panel_input_hint"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:id="@+id/message_panel_inout" app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/message_panel_send_sms"
+        />
+        <TextView
+                android:shape="oval"
+                android:radius="16dp"
+                android:background="@drawable/rounded_corner"
+                android:textColor="#ffffffff"
+                android:clickable="true"
+                android:text="@string/message_panel_input_send_msg"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:id="@+id/message_panel_send_sms"
+                app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/message_panel_inout" android:gravity="center"
+                android:paddingLeft="8dp" android:paddingRight="8dp"/>
     </android.support.constraint.ConstraintLayout>
 </ScrollView>

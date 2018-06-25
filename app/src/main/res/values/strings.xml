@@ -55,4 +55,6 @@
     <string name="message_panel_return">Return</string>
     <string name="message_panel_view">View contact</string>
     <string name="message_panel_phone">Phone</string>
+    <string name="message_panel_input_hint">Type your message</string>
+    <string name="message_panel_input_send_msg">Send</string>
 </resources>

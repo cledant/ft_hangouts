@@ -33,6 +33,8 @@ public class MessagePanelActivity extends BaseActivity
 		//Bind Buttons
 		TextView ret = findViewById(R.id.toolbar_message_panel_return);
 		ret.setOnClickListener(this);
+		TextView send = findViewById(R.id.message_panel_send_sms);
+		send.setOnClickListener(this);
 
 		//Set contact info
 		Bundle bundle = getIntent().getExtras();
@@ -70,6 +72,10 @@ public class MessagePanelActivity extends BaseActivity
 			case R.id.menu_message_panel_phone:
 			{
 				dialPhone(phone_number);
+				return true;
+			}
+			case R.id.message_panel_send_sms:
+			{
 				return true;
 			}
 			default:
