@@ -14,7 +14,6 @@ public class MessagePanelActivity extends BaseActivity
 		implements View.OnClickListener
 {
 	private long contact_id = -1;
-	private String phone_number = "";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -43,12 +42,8 @@ public class MessagePanelActivity extends BaseActivity
 			contact_id = bundle.getLong("ID");
 
 		//Get contact phonenumber
-		if (contact_id != -1)
-		{
-			DAOContact dao = new DAOContact(getApplicationContext());
-			contact = dao.select(contact_id);
-			phone_number = contact.getPhonenumber();
-		}
+		if (contact_id == -1)
+			super.onBackPressed();
 	}
 
 	@Override
@@ -72,7 +67,7 @@ public class MessagePanelActivity extends BaseActivity
 			}
 			case R.id.menu_message_panel_phone:
 			{
-				dialPhone(phone_number);
+				dialPhone(getPhonenumber());
 				return true;
 			}
 			default:
@@ -97,7 +92,8 @@ public class MessagePanelActivity extends BaseActivity
 				EditText input = findViewById(R.id.message_panel_input);
 				String msg = input.getText().toString();
 				input.setText("");
-				SMSHandler.getSMSHandler().sendSMS(phone_number, msg, getApplicationContext());
+				SMSHandler.getSMSHandler().sendSMS(getPhonenumber(), msg,
+						getApplicationContext());
 				break;
 			}
 		}
@@ -106,11 +102,20 @@ public class MessagePanelActivity extends BaseActivity
 	public void dialPhone(String number)
 	{
 		Intent dialIntent = new Intent(Intent.ACTION_DIAL);
-		String uri = String.format("tel: %s", phone_number);
+		String uri = String.format("tel: %s", getPhonenumber());
 		dialIntent.setData(Uri.parse(uri));
 		if (dialIntent.resolveActivity(getPackageManager()) != null)
 			startActivity(dialIntent);
 		else
 			super.onBackPressed();
+	}
+
+	public String getPhonenumber()
+	{
+		DAOContact dao = new DAOContact(getApplicationContext());
+		Contact contact = dao.select(contact_id);
+		String phone_number = contact.getPhonenumber();
+
+		return phone_number;
 	}
 }
