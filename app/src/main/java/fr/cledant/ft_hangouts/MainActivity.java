@@ -31,7 +31,7 @@ public class MainActivity extends BaseActivity
 	{
 		//Permission check
 		String[] list_perm = new String[]{Manifest.permission.READ_EXTERNAL_STORAGE,
-				Manifest.permission.CALL_PHONE};
+				Manifest.permission.CALL_PHONE, Manifest.permission.SEND_SMS};
 		askPermissions(list_perm, REQUEST_PERMISSION);
 
 		super.onCreate(savedInstanceState);

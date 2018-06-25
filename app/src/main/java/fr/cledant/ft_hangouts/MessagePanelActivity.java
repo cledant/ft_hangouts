@@ -7,6 +7,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 
 public class MessagePanelActivity extends BaseActivity
@@ -93,10 +94,13 @@ public class MessagePanelActivity extends BaseActivity
 			}
 			case R.id.message_panel_send_sms:
 			{
+				EditText input = findViewById(R.id.message_panel_input);
+				String msg = input.getText().toString();
+				input.setText("");
+				SMSHandler.getSMSHandler().sendSMS(phone_number, msg, getApplicationContext());
 				break;
 			}
 		}
-
 	}
 
 	public void dialPhone(String number)
