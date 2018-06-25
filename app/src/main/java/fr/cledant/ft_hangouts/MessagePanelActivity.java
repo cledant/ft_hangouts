@@ -36,6 +36,10 @@ public class MessagePanelActivity extends BaseActivity
 		TextView send = findViewById(R.id.message_panel_send_sms);
 		send.setOnClickListener(this);
 
+		//Update name
+		TextView contact_name = findViewById(R.id.toolbar_message_panel_title);
+		contact_name.setText(getName());
+
 		//Set contact info
 		Bundle bundle = getIntent().getExtras();
 		if (bundle != null)
@@ -44,6 +48,15 @@ public class MessagePanelActivity extends BaseActivity
 		//Get contact phonenumber
 		if (contact_id == -1)
 			super.onBackPressed();
+	}
+
+	@Override
+	public void onResume()
+	{
+		super.onResume();
+
+		TextView contact_name = findViewById(R.id.toolbar_message_panel_title);
+		contact_name.setText(getName());
 	}
 
 	@Override
@@ -117,5 +130,15 @@ public class MessagePanelActivity extends BaseActivity
 		String phone_number = contact.getPhonenumber();
 
 		return phone_number;
+	}
+
+	public String getName()
+	{
+		DAOContact dao = new DAOContact(getApplicationContext());
+		Contact contact = dao.select(contact_id);
+
+		if (contact.getSurname().equals(""))
+			return (contact.getFirstname() + " " + contact.getLastname());
+		return contact.getSurname();
 	}
 }

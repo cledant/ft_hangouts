@@ -159,7 +159,7 @@ public class MainActivity extends BaseActivity
 		for (long i = 0; i < 100; i++)
 		{
 			dao.create(new Contact(0, "Foo", "Bar", "",
-					Utility.formatPhoneNumber("06666666"), "",
+					Utility.formatPhoneNumber("066666666"), "",
 					"renko.png"));
 		}
 		dao.close();
