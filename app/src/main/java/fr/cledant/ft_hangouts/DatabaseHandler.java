@@ -28,6 +28,30 @@ public class DatabaseHandler extends SQLiteOpenHelper
 					CONTACT_IMG + " TEXT);";
 	public static final String CONTACT_TABLE_DROP = "DROP TABLE IF EXISTS " + CONTACT_TABLE_NAME + ";";
 
+	//Columns for message
+	public static final String MSG_KEY = "id";
+	public static final String MSG_CONTENT = "content";
+	public static final String MSG_OWNER_ID = "owner_id";
+	public static final String MSG_DESTINATION = "destination";
+	public static final String MSG_TIME = "time";
+	public static final String MSG_STATUS = "status";
+
+	//Value for message
+	public static final long MSG_IN = 0;
+	public static final long MSG_OUT = 1;
+
+	//Creation + delete for message
+	public static final String MSG_TABLE_NAME = "Message";
+	public static final String MSG_TABLE_CREATE =
+			"CREATE TABLE " + MSG_TABLE_NAME + " (" +
+					MSG_KEY + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+					MSG_CONTENT + " TEXT, " +
+					MSG_OWNER_ID + " INTEGER, " +
+					MSG_DESTINATION + " INTEGER, " +
+					MSG_TIME + " INTERGER, " +
+					MSG_STATUS + " TEXT);";
+	public static final String MSG_TABLE_DROP = "DROP TABLE IF EXISTS " + MSG_TABLE_NAME + ";";
+
 	public DatabaseHandler(Context context, String name, SQLiteDatabase.CursorFactory factory, int version)
 	{
 		super(context, name, factory, version);
@@ -37,12 +61,14 @@ public class DatabaseHandler extends SQLiteOpenHelper
 	public void onCreate(SQLiteDatabase db)
 	{
 		db.execSQL(CONTACT_TABLE_CREATE);
+		db.execSQL(MSG_TABLE_CREATE);
 	}
 
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion)
 	{
 		db.execSQL(CONTACT_TABLE_DROP);
+		db.execSQL(MSG_TABLE_DROP);
 		onCreate(db);
 	}
 }
