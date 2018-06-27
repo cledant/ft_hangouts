@@ -104,9 +104,12 @@ public class MessagePanelActivity extends BaseActivity
 			{
 				EditText input = findViewById(R.id.message_panel_input);
 				String msg = input.getText().toString();
-				input.setText("");
-				SMSHandler.getSMSHandler().sendSMS(getPhonenumber(), msg,
-						getApplicationContext());
+				if (!msg.equals(""))
+				{
+					input.setText("");
+					SMSHandler.getSMSHandler().sendSMS(getPhonenumber(), msg,
+							getApplicationContext());
+				}
 				break;
 			}
 		}
