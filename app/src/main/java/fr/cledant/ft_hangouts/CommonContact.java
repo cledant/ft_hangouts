@@ -145,10 +145,7 @@ public abstract class CommonContact extends BaseActivity
 		}
 		DAOContact dao = new DAOContact(getApplicationContext());
 		if (this.contact_id == -1)
-		{
-			dao.create(contact);
-			id = dao.getLastId();
-		}
+			id = dao.create(contact);
 		else
 		{
 			dao.modify(contact);

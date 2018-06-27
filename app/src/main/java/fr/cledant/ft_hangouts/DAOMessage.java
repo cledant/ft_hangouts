@@ -22,7 +22,7 @@ public class DAOMessage extends DAOBase
 		value.put(DatabaseHandler.MSG_TIME, msg.getTime());
 		value.put(DatabaseHandler.MSG_STATUS, msg.getStatus());
 		this.open();
-		this.db.insert(DatabaseHandler.MSG_TABLE_NAME, null, value);
+		created_id = this.db.insert(DatabaseHandler.MSG_TABLE_NAME, null, value);
 		this.close();
 		return created_id;
 	}

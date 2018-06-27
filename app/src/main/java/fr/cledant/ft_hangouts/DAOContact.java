@@ -14,9 +14,11 @@ public class DAOContact extends DAOBase
 		super(context);
 	}
 
-	public void create(Contact contact)
+	public long  create(Contact contact)
 	{
 		ContentValues value = new ContentValues();
+		long new_id = -1;
+
 		value.put(DatabaseHandler.CONTACT_FIRSTNAME, contact.getFirstname());
 		value.put(DatabaseHandler.CONTACT_LASTNAME, contact.getLastname());
 		value.put(DatabaseHandler.CONTACT_SURNAME, contact.getSurname());
@@ -24,8 +26,9 @@ public class DAOContact extends DAOBase
 		value.put(DatabaseHandler.CONTACT_PHONENUMBER, contact.getPhonenumber());
 		value.put(DatabaseHandler.CONTACT_IMG, contact.getImagePath());
 		this.open();
-		this.db.insert(DatabaseHandler.CONTACT_TABLE_NAME, null, value);
+		new_id = this.db.insert(DatabaseHandler.CONTACT_TABLE_NAME, null, value);
 		this.close();
+		return new_id;
 	}
 
 	public void delete(long id)
