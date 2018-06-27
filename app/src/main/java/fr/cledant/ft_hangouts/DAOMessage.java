@@ -11,9 +11,11 @@ public class DAOMessage extends DAOBase
 		super(context);
 	}
 
-	public void create(Message msg)
+	public long create(Message msg)
 	{
+		long created_id = -1;
 		ContentValues value = new ContentValues();
+
 		value.put(DatabaseHandler.MSG_CONTENT, msg.getContent());
 		value.put(DatabaseHandler.MSG_OWNER_ID, msg.getOwner_id());
 		value.put(DatabaseHandler.MSG_DESTINATION, msg.getDest());
@@ -22,6 +24,7 @@ public class DAOMessage extends DAOBase
 		this.open();
 		this.db.insert(DatabaseHandler.MSG_TABLE_NAME, null, value);
 		this.close();
+		return created_id;
 	}
 
 	public void delete(long id)

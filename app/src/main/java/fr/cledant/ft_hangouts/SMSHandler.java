@@ -34,20 +34,17 @@ public class SMSHandler
 	{
 		SmsManager sms = SmsManager.getDefault();
 		ArrayList<String> parts = sms.divideMessage(message);
-		int messageCount = parts.size();
 
-		//Intent for single message
-		PendingIntent sentPI = PendingIntent.getBroadcast(app_context, 0, new Intent(SENT), 0);
-		PendingIntent deliveredPI = PendingIntent.getBroadcast(app_context, 0, new Intent(DELIVERED), 0);
+		if (parts.size() == 1)
+			singleSMS(phoneNumber, message, app_context, contact_id);
+		else
+			multipleSMS(phoneNumber, parts, app_context, contact_id);
+	}
 
-		//Case of multiple message
-		ArrayList<PendingIntent> deliveryIntents = new ArrayList<PendingIntent>();
-		ArrayList<PendingIntent> sentIntents = new ArrayList<PendingIntent>();
-		for (int j = 0; j < messageCount; j++)
-		{
-			sentIntents.add(sentPI);
-			deliveryIntents.add(deliveredPI);
-		}
+	private void singleSMS(String phoneNumber, String message, Context app_context, long contact_id)
+	{
+		SmsManager sms = SmsManager.getDefault();
+		DAOMessage daoMessage = new DAOMessage(app_context);
 
 		//Setup callback for SMS delivery status
 		SentSMSBroadcastReceiver ssms = new SentSMSBroadcastReceiver();
@@ -55,20 +52,56 @@ public class SMSHandler
 		DeliveredSMSBroadcastReceiver dsms = new DeliveredSMSBroadcastReceiver();
 		app_context.registerReceiver(dsms, new IntentFilter(DELIVERED));
 
-		//Add messages to db
-		DAOMessage daoMessage = new DAOMessage(app_context);
-		for (int i = 0; i < messageCount; i++)
-		{
-			Message msg = new Message(-1, parts.get(i), contact_id, DatabaseHandler.MSG_OUT,
-					System.currentTimeMillis() + i, DatabaseHandler.MSG_DEFAULT);
-			daoMessage.create(msg);
-		}
+		//Add msg to db
+		Message msg = new Message(-1, message, contact_id, DatabaseHandler.MSG_OUT,
+				System.currentTimeMillis(), DatabaseHandler.MSG_DEFAULT);
+		long newid = daoMessage.create(msg);
+
+		//Create Intent and link id to it
+		Intent sendIntent = new Intent(SENT);
+		Intent deliveredIntent = new Intent(DELIVERED);
+		sendIntent.putExtra("msg_id", newid);
+		deliveredIntent.putExtra("msg_id", newid);
 
 		//Sending message
-		if (messageCount == 1)
-			sms.sendTextMessage(phoneNumber, null, message, sentPI, deliveredPI);
-		else
-			sms.sendMultipartTextMessage(phoneNumber, null, parts, sentIntents, deliveryIntents);
+		PendingIntent sentPI = PendingIntent.getBroadcast(app_context, 0, sendIntent, 0);
+		PendingIntent deliveredPI = PendingIntent.getBroadcast(app_context, 0, deliveredIntent, 0);
+		sms.sendTextMessage(phoneNumber, null, message, sentPI, deliveredPI);
+	}
+
+	private void multipleSMS(String phoneNumber, ArrayList<String> parts, Context app_context, long contact_id)
+	{
+		SmsManager sms = SmsManager.getDefault();
+		DAOMessage daoMessage = new DAOMessage(app_context);
+
+		//Setup callback for SMS delivery status
+		SentSMSBroadcastReceiver ssms = new SentSMSBroadcastReceiver();
+		app_context.registerReceiver(ssms, new IntentFilter(SENT));
+		DeliveredSMSBroadcastReceiver dsms = new DeliveredSMSBroadcastReceiver();
+		app_context.registerReceiver(dsms, new IntentFilter(DELIVERED));
+
+		//Creating arrays
+		ArrayList<PendingIntent> deliveryIntents = new ArrayList<PendingIntent>();
+		ArrayList<PendingIntent> sentIntents = new ArrayList<PendingIntent>();
+
+		//Adding message to db
+		for (int j = 0; j < parts.size(); j++)
+		{
+			Message msg = new Message(-1, parts.get(j), contact_id, DatabaseHandler.MSG_OUT,
+					System.currentTimeMillis() + j, DatabaseHandler.MSG_DEFAULT);
+			long newid = daoMessage.create(msg);
+			Intent sendIntent = new Intent(SENT);
+			Intent deliveredIntent = new Intent(DELIVERED);
+			sendIntent.putExtra("msg_id", newid);
+			deliveredIntent.putExtra("msg_id", newid);
+			PendingIntent sentPI = PendingIntent.getBroadcast(app_context, 0, sendIntent, 0);
+			PendingIntent deliveredPI = PendingIntent.getBroadcast(app_context, 0, deliveredIntent, 0);
+
+			//Adding to array
+			sentIntents.add(sentPI);
+			deliveryIntents.add(deliveredPI);
+		}
+		sms.sendMultipartTextMessage(phoneNumber, null, parts, sentIntents, deliveryIntents);
 	}
 
 	public class SentSMSBroadcastReceiver extends BroadcastReceiver
