@@ -112,18 +112,28 @@ public class SMSHandler
 			switch (getResultCode())
 			{
 				case Activity.RESULT_OK:
+					Utility.updateMessageStatus(arg1.getExtras().getLong("msg_id"),
+							DatabaseHandler.MSG_SENT_OK , arg0);
 					Log.d("SMS_SENT", "SMS sent");
 					break;
 				case SmsManager.RESULT_ERROR_GENERIC_FAILURE:
+					Utility.updateMessageStatus(arg1.getExtras().getLong("msg_id"),
+							DatabaseHandler.MSG_SENT_ERROR , arg0);
 					Log.d("SMS_SENT", "Generic failure");
 					break;
 				case SmsManager.RESULT_ERROR_NO_SERVICE:
+					Utility.updateMessageStatus(arg1.getExtras().getLong("msg_id"),
+							DatabaseHandler.MSG_SENT_ERROR , arg0);
 					Log.d("SMS_SENT", "No service");
 					break;
 				case SmsManager.RESULT_ERROR_NULL_PDU:
+					Utility.updateMessageStatus(arg1.getExtras().getLong("msg_id"),
+							DatabaseHandler.MSG_SENT_ERROR , arg0);
 					Log.d("SMS_SENT", "Null PDU");
 					break;
 				case SmsManager.RESULT_ERROR_RADIO_OFF:
+					Utility.updateMessageStatus(arg1.getExtras().getLong("msg_id"),
+							DatabaseHandler.MSG_SENT_ERROR , arg0);
 					Log.d("SMS_SENT", "Radio off");
 					break;
 			}
@@ -138,9 +148,13 @@ public class SMSHandler
 			switch (getResultCode())
 			{
 				case Activity.RESULT_OK:
+					Utility.updateMessageStatus(arg1.getExtras().getLong("msg_id"),
+							DatabaseHandler.MSG_DELIVER_OK , arg0);
 					Log.d("SMS_DELIVERED", "SMS delivered");
 					break;
 				case Activity.RESULT_CANCELED:
+					Utility.updateMessageStatus(arg1.getExtras().getLong("msg_id"),
+							DatabaseHandler.MSG_DELIVER_ERROR , arg0);
 					Log.d("SMS_DELIVERED", "SMS not delivered");
 					break;
 			}

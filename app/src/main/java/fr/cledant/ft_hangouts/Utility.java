@@ -48,4 +48,14 @@ public class Utility
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
 		return prefs.getBoolean("DummyDB", false);
 	}
+
+	public static void updateMessageStatus(long id, long type, Context context)
+	{
+		Message msg = null;
+		DAOMessage dao = new DAOMessage(context);
+
+		msg = dao.select(id);
+		msg.setStatus(type);
+		dao.modify(msg);
+	}
 }
