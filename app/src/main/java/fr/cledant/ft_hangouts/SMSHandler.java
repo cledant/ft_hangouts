@@ -30,31 +30,45 @@ public class SMSHandler
 		return instance;
 	}
 
-	public void sendSMS(String phoneNumber, String message, Context app_context)
+	public void sendSMS(String phoneNumber, String message, Context app_context, long contact_id)
 	{
 		SmsManager sms = SmsManager.getDefault();
 		ArrayList<String> parts = sms.divideMessage(message);
 		int messageCount = parts.size();
 
-		ArrayList<PendingIntent> deliveryIntents = new ArrayList<PendingIntent>();
-		ArrayList<PendingIntent> sentIntents = new ArrayList<PendingIntent>();
-
+		//Intent for single message
 		PendingIntent sentPI = PendingIntent.getBroadcast(app_context, 0, new Intent(SENT), 0);
 		PendingIntent deliveredPI = PendingIntent.getBroadcast(app_context, 0, new Intent(DELIVERED), 0);
 
+		//Case of multiple message
+		ArrayList<PendingIntent> deliveryIntents = new ArrayList<PendingIntent>();
+		ArrayList<PendingIntent> sentIntents = new ArrayList<PendingIntent>();
 		for (int j = 0; j < messageCount; j++)
 		{
 			sentIntents.add(sentPI);
 			deliveryIntents.add(deliveredPI);
 		}
 
+		//Setup callback for SMS delivery status
 		SentSMSBroadcastReceiver ssms = new SentSMSBroadcastReceiver();
 		app_context.registerReceiver(ssms, new IntentFilter(SENT));
-
 		DeliveredSMSBroadcastReceiver dsms = new DeliveredSMSBroadcastReceiver();
 		app_context.registerReceiver(dsms, new IntentFilter(DELIVERED));
 
-		sms.sendTextMessage(phoneNumber, null, message, sentPI, deliveredPI);
+		//Add messages to db
+		DAOMessage daoMessage = new DAOMessage(app_context);
+		for (int i = 0; i < messageCount; i++)
+		{
+			Message msg = new Message(-1, parts.get(i), contact_id, DatabaseHandler.MSG_OUT,
+					System.currentTimeMillis() + i, DatabaseHandler.MSG_DEFAULT);
+			daoMessage.create(msg);
+		}
+
+		//Sending message
+		if (messageCount == 1)
+			sms.sendTextMessage(phoneNumber, null, message, sentPI, deliveredPI);
+		else
+			sms.sendMultipartTextMessage(phoneNumber, null, parts, sentIntents, deliveryIntents);
 	}
 
 	public class SentSMSBroadcastReceiver extends BroadcastReceiver

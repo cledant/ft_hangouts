@@ -108,7 +108,7 @@ public class MessagePanelActivity extends BaseActivity
 				{
 					input.setText("");
 					SMSHandler.getSMSHandler().sendSMS(getPhonenumber(), msg,
-							getApplicationContext());
+							getApplicationContext(), contact_id);
 				}
 				break;
 			}

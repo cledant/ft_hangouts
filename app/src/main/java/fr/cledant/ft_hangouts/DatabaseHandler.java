@@ -36,9 +36,17 @@ public class DatabaseHandler extends SQLiteOpenHelper
 	public static final String MSG_TIME = "time";
 	public static final String MSG_STATUS = "status";
 
-	//Value for message
+	//Value for message destination
 	public static final long MSG_IN = 0;
 	public static final long MSG_OUT = 1;
+	public static final long MSG_HIDDEN = 2;
+
+	//Value for message status
+	final public static long MSG_SENT_OK = 0;
+	final public static long MSG_SENT_ERROR = 1;
+	final public static long MSG_DELIVER_OK = 2;
+	final public static long MSG_DELIVER_ERROR = 3;
+	final public static long MSG_DEFAULT = -1;
 
 	//Creation + delete for message
 	public static final String MSG_TABLE_NAME = "Message";
@@ -49,7 +57,7 @@ public class DatabaseHandler extends SQLiteOpenHelper
 					MSG_OWNER_ID + " INTEGER, " +
 					MSG_DESTINATION + " INTEGER, " +
 					MSG_TIME + " INTERGER, " +
-					MSG_STATUS + " TEXT);";
+					MSG_STATUS + " INTEGER);";
 	public static final String MSG_TABLE_DROP = "DROP TABLE IF EXISTS " + MSG_TABLE_NAME + ";";
 
 	public DatabaseHandler(Context context, String name, SQLiteDatabase.CursorFactory factory, int version)
