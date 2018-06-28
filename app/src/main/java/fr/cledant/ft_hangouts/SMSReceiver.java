@@ -4,19 +4,17 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.telephony.SmsManager;
 import android.telephony.SmsMessage;
-import android.widget.Toast;
+
+import java.util.List;
 
 public class SMSReceiver extends BroadcastReceiver
 {
 	private static final String SMS_RECEIVED = "android.provider.Telephony.SMS_RECEIVED";
-	SmsManager sms = SmsManager.getDefault();
 
 	public void onReceive(Context context, Intent intent)
 	{
 		Bundle bundle = intent.getExtras();
-		DAOMessage daoMessage = new DAOMessage(context);
 		if (intent.getAction().equals(SMS_RECEIVED))
 		{
 			if (bundle != null)
@@ -33,9 +31,34 @@ public class SMSReceiver extends BroadcastReceiver
 					}
 					String sender = messages[0].getOriginatingAddress();
 					String message = sb.toString();
-					Toast.makeText(context, sender, Toast.LENGTH_SHORT).show();
+					addMessageToDB(sender, message, context);
 				}
 			}
 		}
+	}
+
+	private void addMessageToDB(String sender, String message, Context context)
+	{
+		DAOContact dao_contact = new DAOContact(context);
+		DAOMessage dao_message = new DAOMessage(context);
+
+		long time = System.currentTimeMillis();
+		List<Contact> contacts = dao_contact.findByNumber(sender);
+		if (contacts.size() == 0)
+		{
+			createNewContact(sender, message, context);
+			return;
+		}
+		for (int i = 0; i < contacts.size(); i++)
+		{
+			Message msg = new Message(-1, message, contacts.get(i).getId(),
+					DatabaseHandler.MSG_IN, time, DatabaseHandler.MSG_DELIVER_OK);
+			dao_message.create(msg);
+		}
+	}
+
+	private void createNewContact(String sender, String message, Context context)
+	{
+		return;
 	}
 }

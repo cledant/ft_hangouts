@@ -3,9 +3,9 @@ package fr.cledant.ft_hangouts;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.support.annotation.NonNull;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class DAOContact extends DAOBase
 {
@@ -117,5 +117,12 @@ public class DAOContact extends DAOBase
 		}
 		this.close();
 		return list;
+	}
+
+	public List<Contact> findByNumber(String number)
+	{
+		List<Contact> found = new ArrayList<Contact>();
+
+		return found;
 	}
 }
