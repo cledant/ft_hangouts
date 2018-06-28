@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.os.Build;
 import android.preference.PreferenceManager;
 import android.telephony.PhoneNumberUtils;
+import android.view.WindowManager;
 
 import java.util.Locale;
 
@@ -57,5 +58,19 @@ public class Utility
 		msg = dao.select(id);
 		msg.setStatus(type);
 		dao.modify(msg);
+	}
+
+	public static int getThemeColor(Context context)
+	{
+		switch (Utility.getThemePref(context.getApplicationContext()))
+		{
+			case BaseActivity.THEME_BLUE:
+				return context.getResources().getColor(R.color.colorPrimaryDark);
+			case BaseActivity.THEME_RED:
+				return context.getResources().getColor(R.color.colorSecondaryDark);
+			case BaseActivity.THEME_YELLOW:
+				return context.getResources().getColor(R.color.colorTertiaryDark);
+		}
+		return 0;
 	}
 }

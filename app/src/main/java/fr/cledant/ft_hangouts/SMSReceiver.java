@@ -3,9 +3,17 @@ package fr.cledant.ft_hangouts;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.AssetManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.support.v4.app.NotificationCompat;
 import android.telephony.SmsMessage;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 
 public class SMSReceiver extends BroadcastReceiver
@@ -64,8 +72,64 @@ public class SMSReceiver extends BroadcastReceiver
 		long newID = -1;
 		DAOContact dao_contact = new DAOContact(context);
 
-		Contact contact = new Contact(-1, sender, "", "", sender, "", "renko.png");
+		Contact contact = new Contact(-1, sender, "", "", sender, "", Utility.DEFAULT_IMG);
 		newID = dao_contact.create(contact);
 		return newID;
+	}
+
+	private void addNotification(Context context, Contact contact, String message)
+	{
+		//Set notification String title
+		String title;
+		if (contact.getSurname().length() > 0)
+			title = contact.getSurname();
+		else if (contact.getFirstname().length() > 0)
+			title = contact.getFirstname() + " " + contact.getLastname();
+		else
+			title = contact.getLastname();
+
+		//Loading Contact image
+		Bitmap large_icon;
+		try
+		{
+			large_icon = loadImage(contact.getImagePath(), context);
+		}
+		catch (Exception e)
+		{
+			large_icon = null;
+		}
+
+		//Create notification
+		NotificationCompat.Builder builder = new NotificationCompat.Builder(context, "channel_msg")
+				.setSmallIcon(R.mipmap.ic_launcher_foreground)
+				.setLargeIcon(large_icon)
+				.setColor(Utility.getThemeColor(context))
+				.setContentTitle(title)
+				.setContentText(message)
+				.setAutoCancel(true)
+				.setPriority(NotificationCompat.PRIORITY_DEFAULT);
+	}
+
+	private Bitmap loadImage(String path, Context context) throws IOException
+	{
+		AssetManager assetManager = context.getAssets();
+
+		switch (path)
+		{
+			case "":
+			{
+				InputStream is = assetManager.open(path);
+				return BitmapFactory.decodeStream(is);
+			}
+			case Utility.DEFAULT_IMG:
+			{
+				InputStream is = assetManager.open(path);
+				return BitmapFactory.decodeStream(is);
+			}
+			default:
+			{
+				return MediaStore.Images.Media.getBitmap(context.getContentResolver(), Uri.parse(path));
+			}
+		}
 	}
 }
