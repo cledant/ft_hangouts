@@ -14,7 +14,7 @@ public class DAOContact extends DAOBase
 		super(context);
 	}
 
-	public long  create(Contact contact)
+	public long create(Contact contact)
 	{
 		ContentValues value = new ContentValues();
 		long new_id = -1;
@@ -122,7 +122,21 @@ public class DAOContact extends DAOBase
 	public List<Contact> findByNumber(String number)
 	{
 		List<Contact> found = new ArrayList<Contact>();
-
+		String query = "select * from " + DatabaseHandler.CONTACT_TABLE_NAME + " where " + DatabaseHandler.CONTACT_PHONENUMBER + " = ?";
+		this.open();
+		Cursor cursor = db.rawQuery(query, new String[]{number});
+		if (cursor == null)
+			return found;
+		cursor.moveToFirst();
+		for (long i = 0; i < cursor.getCount(); i++)
+		{
+			found.add(new Contact(cursor.getLong(0), cursor.getString(1),
+					cursor.getString(2), cursor.getString(3),
+					cursor.getString(4), cursor.getString(5),
+					cursor.getString(6)));
+		}
+		cursor.close();
+		this.close();
 		return found;
 	}
 }

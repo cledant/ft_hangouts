@@ -22,7 +22,7 @@
     <string name="add_user_surname">Surnom</string>
     <string name="add_user_phonenumber">Télephone</string>
     <string name="add_user_mail">Email</string>
-    <string name="add_user_error_names">Prénom et nom doivent être remplis</string>
+    <string name="add_user_error_names">Prénom ou nom ou surnom doit être rempli</string>
     <string name="add_user_ok">Contact ajouté</string>
     <string name="add_user_picture">Photo du contact</string>
     <!-- Modify User Toolbar -->

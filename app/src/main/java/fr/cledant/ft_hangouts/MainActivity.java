@@ -90,8 +90,7 @@ public class MainActivity extends BaseActivity
 		if (drawer.isDrawerOpen(GravityCompat.START))
 		{
 			drawer.closeDrawer(GravityCompat.START);
-		}
-		else
+		} else
 		{
 			super.onBackPressed();
 		}
@@ -147,8 +146,8 @@ public class MainActivity extends BaseActivity
 	{
 		GridView gridView = findViewById(R.id.contact_grid);
 		DAOContact dao_contact = new DAOContact(getApplicationContext());
-		List<Contact> image_details = dao_contact.getContactList();
-		gridView.setAdapter(new ContactGridAdapter(this, image_details));
+		List<Contact> contacts = dao_contact.getContactList();
+		gridView.setAdapter(new ContactGridAdapter(this, contacts));
 	}
 
 	public void addDummyContact()

@@ -20,19 +20,16 @@ public class SMSReceiver extends BroadcastReceiver
 			if (bundle != null)
 			{
 				Object[] pdus = (Object[]) bundle.get("pdus");
+				SmsMessage[] messages = new SmsMessage[pdus.length];
+				StringBuilder sb = new StringBuilder();
 				for (int i = 0; i < pdus.length; i++)
 				{
-					SmsMessage[] messages = new SmsMessage[pdus.length];
-					StringBuilder sb = new StringBuilder();
-					for (int j = 0; i < pdus.length; i++)
-					{
-						messages[j] = SmsMessage.createFromPdu((byte[]) pdus[i]);
-						sb.append(messages[j].getMessageBody());
-					}
-					String sender = messages[0].getOriginatingAddress();
-					String message = sb.toString();
-					addMessageToDB(sender, message, context);
+					messages[i] = SmsMessage.createFromPdu((byte[]) pdus[i]);
+					sb.append(messages[i].getMessageBody());
 				}
+				String sender = messages[0].getOriginatingAddress();
+				String message = sb.toString();
+				addMessageToDB(sender, message, context);
 			}
 		}
 	}
@@ -41,12 +38,17 @@ public class SMSReceiver extends BroadcastReceiver
 	{
 		DAOContact dao_contact = new DAOContact(context);
 		DAOMessage dao_message = new DAOMessage(context);
+		long id = -1;
 
 		long time = System.currentTimeMillis();
 		List<Contact> contacts = dao_contact.findByNumber(sender);
 		if (contacts.size() == 0)
 		{
-			createNewContact(sender, message, context);
+			if ((id = createNewContact(sender, context)) == -1)
+				return;
+			Message msg = new Message(-1, message, id, DatabaseHandler.MSG_IN,
+					time, DatabaseHandler.MSG_DELIVER_OK);
+			dao_message.create(msg);
 			return;
 		}
 		for (int i = 0; i < contacts.size(); i++)
@@ -57,8 +59,13 @@ public class SMSReceiver extends BroadcastReceiver
 		}
 	}
 
-	private void createNewContact(String sender, String message, Context context)
+	private long createNewContact(String sender, Context context)
 	{
-		return;
+		long newID = -1;
+		DAOContact dao_contact = new DAOContact(context);
+
+		Contact contact = new Contact(-1, sender, "", "", sender, "", "renko.png");
+		newID = dao_contact.create(contact);
+		return newID;
 	}
 }

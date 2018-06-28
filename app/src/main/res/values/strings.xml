@@ -21,7 +21,7 @@
     <string name="add_user_surname">Surname</string>
     <string name="add_user_phonenumber">Phone</string>
     <string name="add_user_mail">Email</string>
-    <string name="add_user_error_names">Firstname and lastname must be filled</string>
+    <string name="add_user_error_names">Firstname or lastname or Surname must be filled</string>
     <string name="add_user_ok">Contact added</string>
     <string name="add_user_picture">Contact Image</string>
     <!-- Modify User Toolbar -->

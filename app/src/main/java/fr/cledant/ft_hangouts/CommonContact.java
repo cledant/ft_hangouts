@@ -137,7 +137,8 @@ public abstract class CommonContact extends BaseActivity
 				this.path_img);
 		long id = -1;
 
-		if (contact.getFirstname().length() == 0 || contact.getLastname().length() == 0)
+		if (contact.getFirstname().length() == 0 && contact.getLastname().length() == 0 &&
+				contact.getSurname().length() == 0)
 		{
 			Snackbar.make(view, R.string.add_user_error_names, Snackbar.LENGTH_LONG)
 					.setAction("Action", null).show();
