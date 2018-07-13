@@ -22,7 +22,7 @@ public class SMSReceiver extends BroadcastReceiver
 {
 	private static final String SMS_RECEIVED = "android.provider.Telephony.SMS_RECEIVED";
 	public static final String CHANNEL_ID = "channel_msg";
-	private int notif_id = 0;
+	private static int notif_id = 0;
 
 	public void onReceive(Context context, Intent intent)
 	{
