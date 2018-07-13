@@ -57,4 +57,7 @@
     <string name="message_panel_phone">Phone</string>
     <string name="message_panel_input_hint">Type your message</string>
     <string name="message_panel_input_send_msg">Send</string>
+    <!-- Msg Notification toolbar-->
+    <string name="msg_notif_channel_name">Message Notification</string>
+    <string name="msg_notif_channel_description">Alert about received message</string>
 </resources>

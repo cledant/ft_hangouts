@@ -1,5 +1,7 @@
 package fr.cledant.ft_hangouts;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Build;
@@ -72,5 +74,22 @@ public class Utility
 				return context.getResources().getColor(R.color.colorTertiaryDark);
 		}
 		return 0;
+	}
+
+	public static void createNotificationChannel(Context context)
+	{
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
+		{
+			//Get ressources
+			CharSequence name = context.getString(R.string.msg_notif_channel_name);
+			String description = context.getString(R.string.msg_notif_channel_description);
+
+			//Create Channel
+			NotificationChannel channel = new NotificationChannel(SMSReceiver.CHANNEL_ID, name,
+					NotificationManager.IMPORTANCE_DEFAULT);
+			channel.setDescription(description);
+			NotificationManager notificationManager = context.getSystemService(NotificationManager.class);
+			notificationManager.createNotificationChannel(channel);
+		}
 	}
 }

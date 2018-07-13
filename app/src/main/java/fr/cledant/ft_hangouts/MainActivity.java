@@ -18,8 +18,9 @@ import android.view.MenuItem;
 import android.widget.AdapterView;
 import android.widget.GridView;
 
-import java.util.ArrayList;
 import java.util.List;
+
+import static fr.cledant.ft_hangouts.Utility.createNotificationChannel;
 
 public class MainActivity extends BaseActivity
 		implements NavigationView.OnNavigationItemSelectedListener, AdapterView.OnItemClickListener
@@ -57,6 +58,9 @@ public class MainActivity extends BaseActivity
 		setContactInView();
 		GridView gridView = findViewById(R.id.contact_grid);
 		gridView.setOnItemClickListener(this);
+
+		//Add Notification Channel
+		createNotificationChannel(getApplicationContext());
 
 		//Debug
 		//addDummyContact();

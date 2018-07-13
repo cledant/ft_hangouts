@@ -1,5 +1,6 @@
 package fr.cledant.ft_hangouts;
 
+import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -10,6 +11,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.NotificationManagerCompat;
 import android.telephony.SmsMessage;
 
 import java.io.IOException;
@@ -19,6 +21,8 @@ import java.util.List;
 public class SMSReceiver extends BroadcastReceiver
 {
 	private static final String SMS_RECEIVED = "android.provider.Telephony.SMS_RECEIVED";
+	public static final String CHANNEL_ID = "channel_msg";
+	private int notif_id = 0;
 
 	public void onReceive(Context context, Intent intent)
 	{
@@ -64,6 +68,7 @@ public class SMSReceiver extends BroadcastReceiver
 			Message msg = new Message(-1, message, contacts.get(i).getId(),
 					DatabaseHandler.MSG_IN, time, DatabaseHandler.MSG_DELIVER_OK);
 			dao_message.create(msg);
+			addNotification(context, contacts.get(i), message);
 		}
 	}
 
@@ -99,15 +104,27 @@ public class SMSReceiver extends BroadcastReceiver
 			large_icon = null;
 		}
 
+		// Create an explicit intent
+		Intent intent = new Intent(context, MessagePanelActivity.class);
+		intent.putExtra("ID", contact.getId());
+		intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+		PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
+
 		//Create notification
-		NotificationCompat.Builder builder = new NotificationCompat.Builder(context, "channel_msg")
+		NotificationCompat.Builder builder = new NotificationCompat.Builder(context, CHANNEL_ID)
 				.setSmallIcon(R.mipmap.ic_launcher_foreground)
 				.setLargeIcon(large_icon)
 				.setColor(Utility.getThemeColor(context))
 				.setContentTitle(title)
 				.setContentText(message)
 				.setAutoCancel(true)
+				.setContentIntent(pendingIntent)
 				.setPriority(NotificationCompat.PRIORITY_DEFAULT);
+
+		//Display Notification
+		NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
+		notificationManager.notify(notif_id, builder.build());
+		notif_id++;
 	}
 
 	private Bitmap loadImage(String path, Context context) throws IOException
